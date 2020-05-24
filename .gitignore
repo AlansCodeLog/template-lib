@@ -1,0 +1,17 @@
+*.log*
+/*lock*
+.vscode
+node_modules
+docs
+coverage
+dist
+bin
+
+# template
+# deleted by installer
+tsconfig.json
+tsconfig.types.json
+.eslintrc.js
+tests/.eslintrc.js
+package.json
+*.lock
