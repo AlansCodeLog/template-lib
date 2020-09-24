@@ -26,7 +26,7 @@
 		"test:inspect-errors": "set INSPECT_ERRORS=true && npx test",
 
 		"doc": "npx typedoc --options typedoc.config.js",
-		"doc:dev": "npx http-server docs --port=5001 & onchange -i \"src/**/*.ts\" \"typedoc.config.js\" -- npm run doc",
+		"doc:dev": "npx http-server docs --port=5001 & npx onchange -i \"src/**/*.ts\" \"typedoc.config.js\" -- npm run doc",
 
 		"gen:exports": "npx indexit update",
 
