@@ -7,6 +7,7 @@
 	"TOCONFIGURE types": "dist/index.d.ts",
 	"scripts": {
 		"babel:run": "npx babel-node --extensions \".ts,.js\" --",
+		"babel:run:dev": "npx onchange -i \"src/**/*.ts\" -- npx babel-node --extensions \".ts,.js\" --",
 
 		"build:babel": "npx babel --extensions \".ts,.js\" src --out-dir dist --source-maps inline",
 		"build:watch": "npm run build:babel -- --watch",
@@ -27,6 +28,9 @@
 
 		"doc": "npx typedoc --options typedoc.config.js",
 		"doc:dev": "npx http-server docs --port=5001 & npx onchange -i \"src/**/*.ts\" \"typedoc.config.js\" -- npm run doc",
+		"doc:check-invalid": "npx typedoc --options typedoc.config.js --listInvalidSymbolLinks",
+		"doc:check-missing": "rg \"@packageDocumentation @module\" --files-without-match -g \"*.ts\" -g \"!*.spec.ts\" -g \"!tests/**/*\" -g \"!src/index.ts\"",
+
 
 		"gen:exports": "npx indexit update",
 
