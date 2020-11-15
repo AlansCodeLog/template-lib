@@ -93,7 +93,7 @@
 		"@alanscodelog/tsconfigs": "latest",
 
 		"husky": "latest",
-		"indexit": "latest",
+		"indexit": "beta",
 		"onchange": "latest",
 		"http-server": "latest"
 	},

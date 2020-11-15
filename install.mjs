@@ -140,7 +140,7 @@ async function set_json_dependencies(deps) {
 		if (version_wanted.match(/^[^0-9]{0,2}([0-9]+)\.([0-9]+)\.([0-9]+).*$/)) {
 			deps[ dep ] = version_wanted;
 		} else {
-			let current = await get_latest_version(dep)
+			let current = await get_tag_version(dep, version_wanted)
 			deps[ dep ] = `^${current}`;
 		}
 	}))
@@ -160,11 +160,18 @@ function set_raw_dependencies(deps, p_raw, type) {
 	return p_raw
 }
 
-async function get_latest_version(name) {
-	let { stdout, stderr } = await exec(`npm view ${name}`);
-	if (stderr) throw new Error(stderror)
-	// remove colors
-	stdout = stdout.replace(/\u001b\[.*?m/g, "");
-	let match = stdout.match(/.+?\@(.+?)\s\|/);
-	return match[ 1 ];
+async function get_tag_version(name, tag) {
+
+	let { stdout, stderr } = await exec(`npm view ${name} --json`);
+	if (stderr) {
+		console.log(name, tag, stderr)
+		throw new Error()
+	}
+
+	let info = JSON.parse(stdout)
+	let version = info["dist-tags"][tag]
+	if (version === undefined) throw new Error(`Tag ${tag} for ${name} does not exist.`)
+	console.log(name, tag, version)
+
+	return version
 }
