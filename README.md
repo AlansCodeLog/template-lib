@@ -43,13 +43,19 @@ I have also made repos for the configs that rarely change to help declutter thin
 
 # Install
 ```bash
-git clone https://github.com/alanscodelog/template-lib.git && node install.mjs
+git clone https://github.com/alanscodelog/template-lib.git
+mv template-lib PROJECTNAME
+cd PROJECTNAME
+node .template/install.mjs
 ```
+`.template/install.mjs` can also be npm linked by itself. So a copy of the template can be kept around with the script linked for updating dependencies (by replacing their version number with a tag).
+
 Options:
 `-d / --dry-run` - preview
 `-v / --verbose` - print name parsed and all edited files
 `-s / --scope` - scope package under @alanscodelog
 `-n / --no-delete` - do not delete template files
+`-u / --only-update` - re-calculate / update dependencies on `package.json` - will only update if a tag is used. Useful for updating only some deps to latest or a specific tag, like beta without having to `npm view` then copy the version.
 
 The script will then print some commands that need to be run after running `yarn install` (to copy/install some of my configs) and to find all the places the template still needs to be configured.
 
@@ -59,3 +65,8 @@ Rename the `.github-rename-to-enable` folder to just `.github` to enable github 
 # Notes
 
 - The full github url is used in the package.json instead of the nice `github:user/repo` shorthand because then that information can easily accessed by typedoc.
+
+
+# Todo
+
+- Convert to package.

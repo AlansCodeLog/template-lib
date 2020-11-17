@@ -1,18 +1,20 @@
+#!/usr/bin/env node
 import util from "util"
-import { exec as _exec, spawnSync } from "child_process"
+import { exec as _exec } from "child_process"
 const exec = util.promisify(_exec)
 import { promises as fs } from "fs"
 import path from "path"
 
-const template_path = path.resolve("package.template.json")
 
 async function main() {
+	let template_path = path.resolve("package.template.json")
 	let can_write = true
 	let verbose = false
 	let scoped = false
 	let delete_template = true
+	let only_update = false
 	let args = process.argv.slice(2, process.argv.length)
-	let known_options = [ "--dry", "-d", "--verbose", "-v", "--scoped", "-s", "--no-delete", "-n"]
+	let known_options = [ "--dry", "-d", "--verbose", "-v", "--scoped", "-s", "--no-delete", "-n", "--only-update", "-u"]
 	args.forEach(arg => {
 		if (known_options.includes(arg)) {
 			switch (arg) {
@@ -24,6 +26,11 @@ async function main() {
 				case "--scoped": scoped = true; break
 				case "-n":
 				case "--no-delete": delete_template = false; break
+				case "-u":
+				case "--only-update": {
+					only_update = true
+					template_path = path.resolve("package.json")
+				}; break
 			}
 		} else {
 			throw new Error(`Unknown options "${arg}". Known options: ${known_options} `)
@@ -34,8 +41,8 @@ async function main() {
 	let repo_name = npm_name
 	if (npm_name.startsWith("my-")) npm_name = npm_name.slice(3, npm_name.length)
 	if (scoped) npm_name = `@alanscodelog/${npm_name}`
-	verbose && console.log(`name: ${npm_name}`)
-	verbose && console.log(`repo-name: ${repo_name}`)
+	!only_update && verbose && console.log(`name: ${npm_name}`)
+	!only_update && verbose && console.log(`repo-name: ${repo_name}`)
 
 	let promises = []
 
@@ -63,22 +70,24 @@ async function main() {
 				p_raw = set_raw_dependencies(p.peerDependencies, p_raw, "peerDependencies")
 			})
 		}
-		p_raw = p_raw
-			.replace(/TONAME/g, npm_name)
-			.replace(/TOREPONAME/g, repo_name)
+		if (!only_update) {
+			p_raw = p_raw
+				.replace(/TONAME/g, npm_name)
+				.replace(/TOREPONAME/g, repo_name)
+		}
 
 		can_write && await fs.writeFile("package.json", p_raw)
 		return `================== package.json"\n${p_raw}`
 	})
 
-	promises.push(async function gitignore() {
+	!only_update && promises.push(async function gitignore() {
 		let gitignore = (await fs.readFile(path.resolve(".gitignore"))).toString()
 		gitignore = gitignore.replace(/\n# template[\s\S]*/, "")
 		can_write && await fs.writeFile(path.resolve(".gitignore"), gitignore)
 		return `================== .gitignore"\n${gitignore}`
 	})
 
-	promises.push(async function readme() {
+	!only_update && promises.push(async function readme() {
 		let readme = (await fs.readFile(path.resolve("README.md"))).toString()
 		readme = readme
 			.replace(/<!--\n+([\s\S]*?)-->([\s\S]*)/gm, "$1")
@@ -88,7 +97,7 @@ async function main() {
 		return `================== README.md"\n${readme}`
 	})
 
-	;[ "build", "pull-request", "docs", "release" ].forEach((action) => {
+	!only_update && [ "build", "pull-request", "docs", "release" ].forEach((action) => {
 		promises.push(async function workflow() {
 			let plain_path = `.github-rename-to-enable/workflows/${action}.yml`
 			let file_path = path.resolve(plain_path)
@@ -101,14 +110,20 @@ async function main() {
 		})
 	})
 
-	delete_template && can_write && promises.push(async () => {
+	!only_update && delete_template && can_write && promises.push(async () => {
 		await fs.unlink(path.resolve("./package.template.json"))
 		return `================== package.template.json"\n${"DELETED"}`
 	})
-	delete_template && can_write &&  promises.push(async () => {
-		await fs.unlink(path.resolve("./install.mjs"))
-		return `================== install.mjs"\n${"DELETED"}`
+	delete_template && can_write && promises.push(async () => {
+		let exists = await fs.readFile(path.resolve("./.template")).then(() => true).catch(() => false)
+		if (exists) {
+			return fs.rmdir(path.resolve("./.template"), { recursive: true })
+				.then(() => `================== .template/install.mjs"\n${"DELETED"}`)
+		} else {
+			return ""
+		}
 	})
+
 
 	let res = await Promise.all(promises.map(promise => promise()))
 	res.forEach(res => console.log(res))
@@ -123,7 +138,7 @@ async function main() {
 		"package.json",
 		"README.md"
 	].join(" ")
-	can_write && console.log(`================== TEMPLATE GENERATED
+	!only_update && can_write && console.log(`================== TEMPLATE GENERATED
 	Run:
 		yarn install \\
 		&& ./node_modules/@alanscodelog/eslint-config/install.sh \\
@@ -164,14 +179,12 @@ async function get_tag_version(name, tag) {
 
 	let { stdout, stderr } = await exec(`npm view ${name} --json`);
 	if (stderr) {
-		console.log(name, tag, stderr)
-		throw new Error()
+		throw new Error(`Error fetching ${tag} version for ${name}:\n${stderr}`)
 	}
 
 	let info = JSON.parse(stdout)
 	let version = info["dist-tags"][tag]
 	if (version === undefined) throw new Error(`Tag ${tag} for ${name} does not exist.`)
-	console.log(name, tag, version)
 
 	return version
 }
