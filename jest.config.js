@@ -16,10 +16,9 @@ module.exports = {
 		"ts",
 		"js",
 		"json",
-		"node"
 	],
 	"transform": {
-		"^.+\\.(t)sx?$": "ts-jest",
+		"^.+\\.(ts|js)$": "babel-jest",
 	},
 	transformIgnorePatterns: [
 		"/node_modules/"
@@ -34,10 +33,6 @@ module.exports = {
 		"jest-watch-typeahead/testname"
 	],
 	globals: {
-		"ts-jest": {
-			babelConfig: true,
-			diagnostics: false,
-		}
 	},
 	collectCoverageFrom: [
 		"**/src/**/*.ts",

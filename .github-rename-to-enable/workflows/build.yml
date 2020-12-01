@@ -46,7 +46,7 @@ jobs:
     - run: yarn install --frozen-lockfile
       if: "env.USE_LOCKFILE == 'true'"
 
-    - run: yarn install
+    - run: yarn install --no-lockfile
       if: "env.USE_LOCKFILE == 'false'"
 
     - run: yarn build

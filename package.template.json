@@ -11,10 +11,15 @@
 
 		"build:babel": "npx babel --extensions \".ts,.js\" src --out-dir dist --source-maps inline",
 		"build:watch": "npm run build:babel -- --watch",
-		"build:types": "npx tsc --project tsconfig.types.json",
+		"build:clean": "rm -rf dist && npm run build",
+		"TOCONFIGURE": "for lib",
+		"build:types": "npx tsc --project tsconfig.types.json && npx dts-alias -p tsconfig.types.json",
+		"build": "npm run build:babel && npm run build:shebang",
+		"TOCONFIGURE": "for cli",
 		"build": "npm run build:babel && npm run build:types",
+		"build:shebang": "node -e \"const fs = require('fs'); fs.writeFileSync('./bin/index.js', '#!/usr/bin/env node\\n' + fs.readFileSync('./bin/index.js'))\"",
 
-		"lint:eslint": "npx eslint \"src/**/*.ts\" \"tests/**/*.ts\" --max-warnings=0",
+		"lint:eslint": "npx eslint --max-warnings=0 --report-unused-disable-directives",
 		"lint:types": "npx tsc --noEmit --pretty",
 		"lint:commits": "npx commitlint --from $(git rev-list HEAD --not --remotes | tail -1)^ --to HEAD --verbose",
 		"lint": "npm run lint:types && npm run lint:eslint",
@@ -22,8 +27,8 @@
 		"coverage": "npm run test -- --coverage",
 		"coverage:dev": "npx http-server coverage/lcov-report --port=5000 & onchange -k -i \"jest.config.js\" --  npm run coverage -- --watch",
 
-		"test": "npx jest test --verbose --runInBand",
-		"test:debug": "node --inspect-brk node_modules/jest/bin/jest test --verbose --runInBand",
+		"test": "npx jest test --verbose",
+		"test:debug": "node --inspect-brk node_modules/jest/bin/jest test --verbose",
 		"test:inspect-errors": "set INSPECT_ERRORS=true && npx test",
 
 		"doc": "npx typedoc --options typedoc.config.js",
@@ -34,18 +39,21 @@
 
 		"gen:exports": "npx indexit update",
 
-		"audit:prod": "yarn audit --groups dependencies",
+		"audit:prod": "yarn audit --level moderate --groups dependencies",
 		"TOCONFIGURE prepare": "npm run build"
 	},
 	"TOCONFIGURE husky": {
 		"hooks": {
-			"pre-commit": "npm run build:babel && npm run lint && npm run test -- --no-cache",
+			"pre-commit": "npm run build && npm run lint && npm run test -- --no-cache",
 			"pre-push": "npm run lint:commits"
 		}
 	},
-	"dependencies": {},
+	"dependencies": {
+		"@alanscodelog/utils": "latest"
+	},
 	"devDependencies": {
-		"@alanscodelog/utils": "latest",
+		"type-fest":"latest",
+
 		"@types/node": "latest",
 
 		"semantic-release": "latest",
@@ -77,6 +85,9 @@
 		"@typescript-eslint/eslint-plugin": "latest",
 		"@typescript-eslint/parser": "latest",
 		"@alanscodelog/eslint-config": "latest",
+		"TOCONFIGURE": "if vue",
+		"eslint-plugin-vue": ">=7.0.0",
+		"@vue/eslint-config-typescript": ">=7.0.0",
 
 		"chai": "latest",
 		"jest": "latest",
@@ -91,6 +102,7 @@
 
 		"typescript": "latest",
 		"@alanscodelog/tsconfigs": "latest",
+		"dts-alias": "latest",
 
 		"husky": "latest",
 		"indexit": "beta",
@@ -102,7 +114,8 @@
 	"license": "MIT",
 	"TOCONFIGURE files": [
 		"src",
-		"dist"
+		"dist",
+		"bin"
 	],
 	"release": { "extends": [ "@alanscodelog/semantic-release-config" ] },
 	"commitlint": { "extends": [ "@alanscodelog" ] },
@@ -114,8 +127,9 @@
 			"lint:commits": "Lints all unpushed commits in the active branch.",
 			"test:inspect_errors":"For use with my inspect_error utility function from @alanscodelog/utils",
 			"prepare": "Needed so that if we pull the package from git it will get built and installed properly."
-		}
+		},
 	},
+	"TEMPLATE:COMMIT": "Ignore. Commit of the template this was created with / last updated to.",
 	"TOCONFIGURE (for scoped packages) publishConfig": {
 		"access": "public"
 	},

@@ -1,9 +1,10 @@
-*.log*
+**/*.log*
 *lock*
 .vscode
 node_modules
 docs
 coverage
+# TOCONFIGURE
 dist
 bin
 

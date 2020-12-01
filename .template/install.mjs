@@ -13,11 +13,32 @@ async function main() {
 	let scoped = false
 	let delete_template = true
 	let only_update = false
+	let just_help = false
+	let just_version = false
 	let args = process.argv.slice(2, process.argv.length)
-	let known_options = [ "--dry", "-d", "--verbose", "-v", "--scoped", "-s", "--no-delete", "-n", "--only-update", "-u"]
+	let known_options = [
+		"-d",
+		"--dry",
+		"-v",
+		"--verbose",
+		"-s",
+		"--scoped",
+		"-n",
+		"--no-delete",
+		"-u",
+		"--only-update",
+		"-v",
+		"--version",
+		"-h",
+		"--help"
+	]
 	args.forEach(arg => {
 		if (known_options.includes(arg)) {
 			switch (arg) {
+				case "-h":
+				case "--help": just_help = true; break
+				case "-v":
+				case "--version": just_version = true; break
 				case "-d":
 				case "--dry": can_write = false; verbose = true; break
 				case "-v":
@@ -36,13 +57,35 @@ async function main() {
 			throw new Error(`Unknown options "${arg}". Known options: ${known_options} `)
 		}
 	})
+	if (just_help) {
+		let pairs = []
+		let pair = []
+		for (let i = 0; i < known_options.length; i++) {
+			pair.push(known_options[i])
+			if (i % 2) {
+				pairs.push(pair)
+				pair = []
+			}
+		}
+		for (pair of pairs) {
+			console.log(pair[0] + ", " + pair[1])
+		}
+		process.exit(0)
+	}
+	let template_commit_sha = (await exec("git rev-parse --short --verify HEAD")).stdout.trim()
+
+	if (just_version) {
+		console.log(`Version (template commit SHA): ${template_commit_sha}`)
+		process.exit(0)
+	}
 
 	let npm_name = path.basename(process.cwd())
 	let repo_name = npm_name
 	if (npm_name.startsWith("my-")) npm_name = npm_name.slice(3, npm_name.length)
 	if (scoped) npm_name = `@alanscodelog/${npm_name}`
 	!only_update && verbose && console.log(`name: ${npm_name}`)
-	!only_update && verbose && console.log(`repo-name: ${repo_name}`)
+	!only_update && verbose && console.log(`repo name: ${repo_name}`)
+	!only_update && verbose && console.log(`template commit SHA: ${template_commit_sha}`)
 
 	let promises = []
 
@@ -55,26 +98,29 @@ async function main() {
 		 */
 		let p_raw = (template).toString()
 
-		if (p.dependencies && Object.keys(p.dependencies).length !== 0){
-			await set_json_dependencies(p.dependencies).then(() => {
-				p_raw = set_raw_dependencies(p.dependencies, p_raw, "dependencies")
-			})
-		}
-		if (p.devDependencies && Object.keys(p.devDependencies).length !== 0){
-			await set_json_dependencies(p.devDependencies).then(() => {
-				p_raw = set_raw_dependencies(p.devDependencies, p_raw, "devDependencies")
-			})
-		}
-		if (p.peerDependencies && Object.keys(p.peerDependencies).length !== 0) {
-			await set_json_dependencies(p.peerDependencies).then(() => {
-				p_raw = set_raw_dependencies(p.peerDependencies, p_raw, "peerDependencies")
-			})
-		}
+		// if (p.dependencies && Object.keys(p.dependencies).length !== 0){
+		// 	await set_json_dependencies(p.dependencies).then(() => {
+		// 		p_raw = set_raw_dependencies(p.dependencies, p_raw, "dependencies")
+		// 	})
+		// }
+		// if (p.devDependencies && Object.keys(p.devDependencies).length !== 0){
+		// 	await set_json_dependencies(p.devDependencies).then(() => {
+		// 		p_raw = set_raw_dependencies(p.devDependencies, p_raw, "devDependencies")
+		// 	})
+		// }
+		// if (p.peerDependencies && Object.keys(p.peerDependencies).length !== 0) {
+		// 	await set_json_dependencies(p.peerDependencies).then(() => {
+		// 		p_raw = set_raw_dependencies(p.peerDependencies, p_raw, "peerDependencies")
+		// 	})
+		// }
 		if (!only_update) {
 			p_raw = p_raw
 				.replace(/TONAME/g, npm_name)
 				.replace(/TOREPONAME/g, repo_name)
+				.replace(/TEMPLATE\:COMMIT/g, `TEMPLATE:${template_commit_sha}`)
 		}
+		console.log(p_raw)
+
 
 		can_write && await fs.writeFile("package.json", p_raw)
 		return `================== package.json"\n${p_raw}`
