@@ -36,7 +36,7 @@
 		"doc:check-invalid": "npx typedoc --options typedoc.config.js --listInvalidSymbolLinks",
 		"doc:check-missing": "rg \"@packageDocumentation @module\" --files-without-match -g \"*.ts\" -g \"!*.spec.ts\" -g \"!tests/**/*\" -g \"!src/index.ts\"",
 
-		"action": "act --workflows ./.github-rename-to-enable/workflows/ -j",
+		"actions": "act -r -j build-only",
 
 		"gen:exports": "npx indexit update",
 
@@ -127,7 +127,8 @@
 		"scripts": {
 			"lint:commits": "Lints all unpushed commits in the active branch.",
 			"test:inspect_errors":"For use with my inspect_error utility function from @alanscodelog/utils",
-			"prepare": "Needed so that if we pull the package from git it will get built and installed properly."
+			"prepare": "Needed so that if we pull the package from git it will get built and installed properly.",
+			"actions": "For debugging github actions locally with nektos/act. Requires act and docker."
 		},
 	},
 	"TEMPLATE:COMMIT": "Ignore. Commit of the template this was created with / last updated to.",

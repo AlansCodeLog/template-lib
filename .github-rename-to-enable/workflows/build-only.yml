@@ -12,7 +12,7 @@ on:
     # to trigger: curl -v -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token $GH_TOKEN" https://api.github.com/repos/alanscodelog/TOREPONAME/dispatches -d '{ "event_type": "build-only" }'
 
 jobs:
-  build:
+  build-only:
     runs-on: ubuntu-latest
     strategy:
       matrix:
