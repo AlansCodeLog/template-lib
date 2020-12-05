@@ -13,7 +13,7 @@
 		"build:watch": "npm run build:babel -- --watch",
 		"build:clean": "rm -rf dist && npm run build",
 		"TOCONFIGURE": "for lib",
-		"build:types": "npx tsc --project tsconfig.types.json && npx dts-alias -p tsconfig.types.json",
+		"build:types": "npx tsc -p tsconfig.types.json && npx dts-alias -p tsconfig.types.json",
 		"build": "npm run build:babel && npm run build:shebang",
 		"TOCONFIGURE": "for cli",
 		"build": "npm run build:babel && npm run build:types",
@@ -73,7 +73,7 @@
 		"@babel/node": "latest",
 		"@babel/preset-env": "latest",
 		"@babel/preset-typescript": "latest",
-		"@babel/plugin-proposal-export-namespace-from": "^7.10.1",
+		"@babel/plugin-proposal-export-namespace-from": "latest",
 		"@babel/plugin-proposal-class-properties": "latest",
 		"babel-plugin-module-resolver": "latest",
 		"@alanscodelog/babel-preset": "latest",
@@ -87,15 +87,15 @@
 		"@typescript-eslint/parser": "latest",
 		"@alanscodelog/eslint-config": "latest",
 		"TOCONFIGURE": "if vue",
-		"eslint-plugin-vue": ">=7.0.0",
-		"@vue/eslint-config-typescript": ">=7.0.0",
+		"eslint-plugin-vue": "latest",
+		"@vue/eslint-config-typescript": "latest",
 
 		"chai": "latest",
 		"jest": "latest",
-		"ts-jest": "latest",
 		"jest-watch-typeahead": "latest",
 		"@types/chai": "latest",
 		"@types/jest": "latest",
+		"TOCONFIGURE ts-expect": "latest",
 
 		"typedoc": "latest",
 		"typedoc-neo-theme": "latest",
@@ -120,7 +120,7 @@
 	],
 	"release": { "extends": [ "@alanscodelog/semantic-release-config" ] },
 	"commitlint": { "extends": [ "@alanscodelog" ] },
-	"babel": { "presets": ["@alanscodelog"] },
+	"babel": { "presets": [ "@alanscodelog" ] },
 	"TOCONFIGURE browserslist":"> 0.5%, last 2 versions, not dead, not < 0.25%, not IE > 0, maintained node versions",
 	"engines": { "node": ">=10.0.0" },
 	"@comments": {
@@ -129,7 +129,7 @@
 			"test:inspect_errors":"For use with my inspect_error utility function from @alanscodelog/utils",
 			"prepare": "Needed so that if we pull the package from git it will get built and installed properly.",
 			"actions:debug": "For debugging github build action locally with nektos/act. Requires act and docker. Note: Cache will never work locally because of https://github.com/nektos/act/issues/285"
-		},
+		}
 	},
 	"TEMPLATE:COMMIT": "Ignore. Commit of the template this was created with / last updated to.",
 	"TOCONFIGURE (for scoped packages) publishConfig": {

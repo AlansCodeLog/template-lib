@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         #TOCONFIGURE awaiting https://github.com/actions/setup-node/issues/26 so we can just set this to [lts]
-        # ideally we would trigger a release if the build suceeds on both node version, need to research #future
+        # ideally we would trigger a release if the build succeeds on both node version, need to research #future
         node-version: [10.x]
 
     steps:
