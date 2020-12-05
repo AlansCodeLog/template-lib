@@ -5,6 +5,11 @@ env:
   USE_LOCKFILE: false
 
 on:
+  #TOCONFIGURE
+  schedule:
+    # every first of the month at 12:00 noon GMT-3
+    # https://crontab.guru/#0_12_1_*_*
+    - cron:  '0 15 1 * *'
   push:
     branches: [ master ]
   repository_dispatch:
