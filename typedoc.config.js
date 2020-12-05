@@ -25,6 +25,7 @@ module.exports = {
 	plugin: [
 		"typedoc-neo-theme",
 		"typedoc-plugin-external-module-name",
+		"typedoc-plugin-param-names",
 	],
 	// topbar
 	links: [

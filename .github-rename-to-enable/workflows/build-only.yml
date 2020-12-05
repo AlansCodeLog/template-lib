@@ -1,5 +1,6 @@
 name: Build-Only
-# exactly like build, except does not affect the github badge, mostly for debugging build issues with actions
+# for debugging failing builds (including docs) without releasing or touching master
+# does not use cache
 
 env:
   USE_LOCKFILE: false
@@ -34,10 +35,14 @@ jobs:
     - run: yarn install --frozen-lockfile
       if: "env.USE_LOCKFILE == 'true'"
 
-    - run: yarn install --no-lockfile
+    # awaiting --ignore engines is temporary because of "typedoc-plugin-param-names" having engines >=12
+    # only this command needs it because I only use no lockfile for libs and only libs need typedoc
+    - run: yarn install --no-lockfile --ignore-engines
       if: "env.USE_LOCKFILE == 'false'"
 
     - run: yarn build
 
     - run: yarn test
+
+    - run: yarn doc
     # endregion
