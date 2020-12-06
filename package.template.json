@@ -19,7 +19,7 @@
 		"build": "npm run build:babel && npm run build:types",
 		"build:shebang": "node -e \"const fs = require('fs'); fs.writeFileSync('./bin/index.js', '#!/usr/bin/env node\\n' + fs.readFileSync('./bin/index.js'))\"",
 
-		"lint:eslint": "npx eslint --max-warnings=0 --report-unused-disable-directives",
+		"lint:eslint": "npx eslint . --ext .js,.ts --max-warnings=0 --report-unused-disable-directives",
 		"lint:types": "npx tsc --noEmit --pretty",
 		"lint:commits": "npx commitlint --from $(git rev-list HEAD --not --remotes | tail -1)^ --to HEAD --verbose",
 		"lint": "npm run lint:types && npm run lint:eslint",
