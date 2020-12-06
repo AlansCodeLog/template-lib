@@ -12,6 +12,7 @@ on:
 
 jobs:
   docs:
+    if: "! contains(toJSON(github.event.commits.*.message), '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
       matrix:
