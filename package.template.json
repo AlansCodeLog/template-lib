@@ -19,7 +19,7 @@
 		"build": "npm run build:babel && npm run build:types",
 		"build:shebang": "node -e \"const fs = require('fs'); fs.writeFileSync('./bin/index.js', '#!/usr/bin/env node\\n' + fs.readFileSync('./bin/index.js'))\"",
 
-		"lint:eslint": "npx eslint . --ext .js,.ts --max-warnings=0 --report-unused-disable-directives",
+		"TOCONFIGURE lint:eslint": "npx eslint \"{src,tests,bin}/**/*.{js,ts}\" \"*.{js,ts}\" --max-warnings=0 --report-unused-disable-directives",
 		"lint:types": "npx tsc --noEmit --pretty",
 		"lint:commits": "npx commitlint --from $(git rev-list HEAD --not --remotes | tail -1)^ --to HEAD --verbose",
 		"lint": "npm run lint:types && npm run lint:eslint",
@@ -105,12 +105,12 @@
 
 		"typescript": "latest",
 		"@alanscodelog/tsconfigs": "latest",
-		"dts-alias": "latest",
+		"TOCONFIGURE dts-alias": "latest",
 
 		"husky": "latest",
 		"indexit": "beta",
 		"onchange": "latest",
-		"http-server": "latest"
+		"TOCONFIGURE http-server": "latest"
 	},
 	"author": "Alan <alanscodelog@gmail.com>",
 	"repository": "https://github.com/alanscodelog/TOREPONAME",
