@@ -4,6 +4,6 @@ import { expect } from "chai"
 
 describe(test_name(), () => {
 	it("no tests", () => {
-		expect(true).to.equal(true)
+		expect(true).to.equal(false)
 	})
 })
