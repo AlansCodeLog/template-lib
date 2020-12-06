@@ -36,7 +36,7 @@
 		"doc:check-invalid": "npx typedoc --options typedoc.config.js --listInvalidSymbolLinks",
 		"doc:check-missing": "rg \"@packageDocumentation @module\" --files-without-match -g \"*.ts\" -g \"!*.spec.ts\" -g \"!tests/**/*\" -g \"!src/index.ts\"",
 
-		"actions:debug": "act -r -j build-only",
+		"actions:debug": "act -r -v -j build-only",
 
 		"gen:exports": "npx indexit update",
 
