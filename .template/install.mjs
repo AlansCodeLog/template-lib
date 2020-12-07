@@ -145,7 +145,7 @@ async function main() {
 
 	!only_update && [ "build", "pull-request", "docs", "release" ].forEach((action) => {
 		promises.push(async function workflow() {
-			let plain_path = `.github-rename-to-enable/workflows/${action}.yml`
+			let plain_path = `.github/workflows/${action}.yml`
 			let file_path = path.resolve(plain_path)
 			let workflow = (await fs.readFile(file_path)).toString()
 			workflow = workflow
@@ -176,10 +176,10 @@ async function main() {
 	// since these don't take long and it's better to print them last they're not pushed to the promises array
 
 	let dirs = [
-		".github-rename-to-enable/workflows/build.yml",
-		".github-rename-to-enable/workflows/docs.yml",
-		".github-rename-to-enable/workflows/pull-request.yml",
-		".github-rename-to-enable/workflows/release.yml",
+		".github/workflows/build.yml",
+		".github/workflows/docs.yml",
+		".github/workflows/pull-request.yml",
+		".github/workflows/release.yml",
 		"jest.config.js",
 		"package.json",
 		"README.md"

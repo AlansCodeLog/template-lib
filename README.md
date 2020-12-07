@@ -59,9 +59,6 @@ Options:
 
 The script will then print some commands that need to be run after running `yarn install` (to copy/install some of my configs) and to find all the places the template still needs to be configured.
 
-Rename the `.github-rename-to-enable` folder to just `.github` to enable github actions.
-
-
 # Notes
 
 - The full github url is used in the package.json instead of the nice `github:user/repo` shorthand because then that information can easily accessed by typedoc.

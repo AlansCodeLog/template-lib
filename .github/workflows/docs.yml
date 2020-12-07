@@ -1,24 +1,23 @@
-name: Release
+name: Docs
 
 env:
   USE_LOCKFILE: false
 
 on:
   push:
-    branches: [ master, alpha, beta ]
+    branches: [ master ]
   repository_dispatch:
-    types: [ release ]
-    # to trigger: curl -v -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token $GH_TOKEN" https://api.github.com/repos/alanscodelog/TOREPONAME/dispatches -d '{ "event_type": "release" }'
+    types: [ docs ]
+    # to trigger: curl -v -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token $GH_TOKEN" https://api.github.com/repos/alanscodelog/TOREPONAME/dispatches -d '{ "event_type": "docs" }'
 
 jobs:
-  release:
-    if: "! contains(toJSON(github.event.commits.*.message), '[skip ci]') && ! contains(toJSON(github.event.commits.*.message), '(no-release)')"
+  docs:
+    if: "! contains(toJSON(github.event.commits.*.message), '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        #TOCONFIGURE awaiting https://github.com/actions/setup-node/issues/26 so we can just set this to [lts]
-        # ideally we would trigger a release if the build succeeds on both node versions, need to research #future
-        node-version: [10.x]
+        #TOCONFIGURE awaiting https://github.com/actions/setup-node/issues/26 so we can just set this to [latest]
+        node-version: [14.x]
 
     steps:
 
@@ -59,9 +58,15 @@ jobs:
 
     - run: yarn test
 
-    - name: Release
+    - run: yarn doc
+
+    - name: Documentation
+      # TOCONFIGURE
+      if: "env.REMOVE_LINE_TO_ENABLE == 'true'"
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        target_branch: gh-pages
+        build_dir: docs
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npx semantic-release
     # endregion
