@@ -50,7 +50,9 @@
 		}
 	},
 	"dependencies": {
-		"@alanscodelog/utils": "latest"
+		"@alanscodelog/utils": "latest",
+
+		"core-js": "latest"
 	},
 	"devDependencies": {
 		"type-fest":"latest",
@@ -77,7 +79,6 @@
 		"@babel/plugin-proposal-class-properties": "latest",
 		"babel-plugin-module-resolver": "latest",
 		"@alanscodelog/babel-preset": "latest",
-		"core-js": "latest",
 
 		"eslint": "latest",
 		"eslint-import-resolver-typescript": "latest",
