@@ -50,7 +50,7 @@
 		}
 	},
 	"dependencies": {
-		"@alanscodelog/utils": "latest",
+		"@alanscodelog/utils": "beta",
 
 		"core-js": "latest"
 	},
