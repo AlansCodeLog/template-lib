@@ -134,10 +134,10 @@
 			"actions:debug": "For debugging github build action locally with nektos/act. Requires act and docker. Note: Cache will never work locally because of https://github.com/nektos/act/issues/285"
 		}
 	},
-	"TEMPLATE:COMMIT": "Ignore. Commit of the template this was created with / last updated to.",
 	"TOCONFIGURE (for scoped packages) publishConfig": {
 		"access": "public"
 	},
-	"TOCONFIGURE private": true
+	"TOCONFIGURE private": true,
+	"TEMPLATE:COMMIT": "Ignore. Commit of the template this was created with / last updated to."
 }
 
