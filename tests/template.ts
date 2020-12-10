@@ -1,5 +1,5 @@
 import { test_name } from "@utils/testing"
-import { expect } from "chai"
+import { expect } from "@tests/chai"
 
 
 describe(test_name(), () => {
