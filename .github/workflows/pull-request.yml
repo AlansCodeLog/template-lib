@@ -59,8 +59,9 @@ jobs:
     - name: Lint Commits
       run: yarn commitlint --from ${{github.event.pull_request.base.sha}} --to ${{github.event.pull_request.head.sha}}
 
-    - name: Build
-      run: yarn build
+    - run: yarn build
+
+    - run: yarn lint:eslint # test command will lint types (coverage runs test script)
 
     - run: yarn coverage
 

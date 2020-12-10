@@ -62,5 +62,7 @@ jobs:
 
     - run: yarn build
 
+    - run: yarn lint:eslint # test command will lint types
+
     - run: yarn test
     # endregion

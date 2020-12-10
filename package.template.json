@@ -27,7 +27,10 @@
 		"coverage": "npm run test -- --coverage",
 		"coverage:dev": "npx http-server coverage/lcov-report --port=5000 & onchange -k -i \"jest.config.js\" --  npm run coverage -- --watch",
 
+		"TOCONFIGURE":"without type testing",
 		"test": "npx jest test --verbose",
+		"TOCONFIGURE":"with type testing",
+		"test": "npm run lint:types && npx jest test --verbose",
 		"test:debug": "node --inspect-brk node_modules/jest/bin/jest test --verbose",
 		"test:inspect-errors": "set INSPECT_ERRORS=true && npx test",
 
@@ -127,6 +130,7 @@
 	"engines": { "node": ">=10.0.0" },
 	"@comments": {
 		"scripts": {
+			"TOCONFIGURE test": "Runs `lint:types` before (so that flags can be passed to the test command) so that we can test type assertions. See expect_type function in @alanscodelog/utils.",
 			"lint:commits": "Lints all unpushed commits in the active branch.",
 			"test:inspect_errors": "For use with my inspect_error utility function from @alanscodelog/utils",
 			"prepare": "Needed so that if we pull the package from git it will get built and installed properly.",
