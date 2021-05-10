@@ -55,7 +55,7 @@
 		}
 	},
 	"dependencies": {
-		"@alanscodelog/utils": "beta",
+		"@alanscodelog/utils": "latest",
 
 		"core-js": "latest"
 	},
@@ -92,7 +92,7 @@
 		"eslint-plugin-jsdoc": "latest",
 		"@typescript-eslint/eslint-plugin": "latest",
 		"@typescript-eslint/parser": "latest",
-		"@alanscodelog/eslint-config": "beta",
+		"@alanscodelog/eslint-config": "latest",
 		"TOCONFIGURE": "if vue",
 		"eslint-plugin-vue": "latest",
 		"@vue/eslint-config-typescript": "latest",
@@ -113,7 +113,7 @@
 		"TOCONFIGURE dts-alias": "latest",
 
 		"husky-v4": "latest",
-		"indexit": "beta",
+		"indexit": "latest",
 		"onchange": "latest",
 		"concurrently": "latest",
 		"TOCONFIGURE http-server": "latest"
