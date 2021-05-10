@@ -44,7 +44,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    # endregion
+    # regionend
 
     # region Steps
     - run: yarn install --frozen-lockfile
@@ -68,4 +68,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: npx semantic-release
-    # endregion
+    # regionend

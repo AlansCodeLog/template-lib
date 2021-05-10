@@ -42,7 +42,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    # endregion
+    # regionend
 
     # region Steps
     - run: yarn install --frozen-lockfile
@@ -69,4 +69,4 @@ jobs:
       uses: romeovs/lcov-reporter-action@v0.2.16
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-    # endregion
+    # regionend

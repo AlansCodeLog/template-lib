@@ -43,7 +43,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    # endregion
+    # regionend
 
     # region Steps
     - run: yarn install --frozen-lockfile
@@ -71,4 +71,4 @@ jobs:
         build_dir: docs
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    # endregion
+    # regionend
