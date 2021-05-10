@@ -110,7 +110,7 @@
 		"@alanscodelog/tsconfigs": "latest",
 		"TOCONFIGURE dts-alias": "latest",
 
-		"husky": "latest",
+		"husky-v4": "latest",
 		"indexit": "beta",
 		"onchange": "latest",
 		"TOCONFIGURE http-server": "latest"
