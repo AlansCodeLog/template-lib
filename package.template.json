@@ -25,7 +25,7 @@
 		"lint": "npm run lint:types && npm run lint:eslint",
 
 		"coverage": "npm run test -- --coverage",
-		"coverage:dev": "npx http-server coverage/lcov-report --port=5000 & onchange -k -i \"jest.config.js\" --  npm run coverage -- --watch",
+		"coverage:dev": "concurrently \"npx http-server coverage/lcov-report --port=5000\" \"onchange -k -i \\\"src/**/*.ts\\\" \\\"jest.config.js\\\" --  npm run coverage -- --watch\"",
 
 		"TOCONFIGURE":"without type testing",
 		"test": "npx jest test --verbose",
@@ -35,7 +35,9 @@
 		"test:inspect-errors": "set INSPECT_ERRORS=true && npx test",
 
 		"doc": "npx typedoc --options typedoc.config.js",
-		"doc:dev": "npx http-server docs --port=5001 & npx onchange -i \"src/**/*.ts\" \"typedoc.config.js\" -- npm run doc",
+		"doc:build": "npx onchange -i \"src/**/*.ts\" \"typedoc.config.js\" -- npm run doc",
+		"doc:serve": "npx http-server docs --port=5001",
+		"doc:dev": "npx concurrently \"yarn doc:build\" \"yarn doc:serve\"",
 		"doc:check-invalid": "npx typedoc --options typedoc.config.js --listInvalidSymbolLinks",
 		"doc:check-missing": "rg \"@packageDocumentation @module\" --files-without-match -g \"*.ts\" -g \"!*.spec.ts\" -g \"!tests/**/*\" -g \"!src/index.ts\"",
 
@@ -113,6 +115,7 @@
 		"husky-v4": "latest",
 		"indexit": "beta",
 		"onchange": "latest",
+		"concurrently": "latest",
 		"TOCONFIGURE http-server": "latest"
 	},
 	"author": "Alan <alanscodelog@gmail.com>",
