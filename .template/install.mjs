@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import util from "util"
-import { exec as _exec } from "child_process"
-const exec = util.promisify(_exec)
-import { promises as fs } from "fs"
+import {exec as _exec} from "child_process"
+import {promises as fs} from "fs"
 import path from "path"
+import {fileURLToPath} from 'url'
+import util from "util"
+const exec = util.promisify(_exec)
 
 
 async function main() {
@@ -72,7 +73,12 @@ async function main() {
 		}
 		process.exit(0)
 	}
-	let template_commit_sha = (await exec("git rev-parse --short --verify HEAD")).stdout.trim()
+	let packagePath = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
+
+	let template_commit_sha = (await exec("git rev-parse --short --verify HEAD", { cwd: packagePath } ).catch(err => {
+		console.log(err)
+		return "TOCONFIGURE - ERROR: Could not find template commit."
+	})).stdout.trim()
 
 	if (just_version) {
 		console.log(`Version (template commit SHA): ${template_commit_sha}`)
