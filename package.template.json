@@ -14,9 +14,9 @@
 		"build:clean": "rm -rf dist && npm run build",
 		"TOCONFIGURE": "for lib",
 		"build:types": "npx tsc -p tsconfig.types.json && npx dts-alias -p tsconfig.types.json",
-		"build": "npm run build:babel && npm run build:shebang",
-		"TOCONFIGURE": "for cli",
 		"build": "npm run build:babel && npm run build:types",
+		"TOCONFIGURE": "for cli",
+		"build": "npm run build:babel && npm run build:shebang",
 		"build:shebang": "node -e \"const fs = require('fs'); fs.writeFileSync('./bin/index.js', '#!/usr/bin/env node\\n' + fs.readFileSync('./bin/index.js'))\"",
 
 		"TOCONFIGURE lint:eslint": "npx eslint \"{src,tests,bin}/**/*.{js,ts}\" \"*.{js,ts}\" --max-warnings=0 --report-unused-disable-directives",
