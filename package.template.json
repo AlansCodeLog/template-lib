@@ -46,13 +46,7 @@
 		"gen:exports": "npx indexit update",
 
 		"audit:prod": "yarn audit --level moderate --groups dependencies",
-		"TOCONFIGURE prepare": "npm run build"
-	},
-	"TOCONFIGURE husky": {
-		"hooks": {
-			"pre-commit": "npm run build && npm run lint && npm run test -- --no-cache",
-			"pre-push": "npm run lint:commits"
-		}
+		"TOCONFIGURE prepare": "npm run build && husky install"
 	},
 	"dependencies": {
 		"@alanscodelog/utils": "latest",
@@ -112,7 +106,7 @@
 		"@alanscodelog/tsconfigs": "latest",
 		"TOCONFIGURE dts-alias": "latest",
 
-		"husky-v4": "latest",
+		"husky": "latest",
 		"indexit": "latest",
 		"onchange": "latest",
 		"concurrently": "latest",

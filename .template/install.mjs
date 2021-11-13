@@ -182,6 +182,8 @@ async function main() {
 	// since these don't take long and it's better to print them last they're not pushed to the promises array
 
 	let dirs = [
+		".husky/pre-commit",
+		".husky/pre-push",
 		".github/workflows/build.yml",
 		".github/workflows/docs.yml",
 		".github/workflows/pull-request.yml",
