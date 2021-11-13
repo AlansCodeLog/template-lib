@@ -124,7 +124,7 @@
 	"commitlint": { "extends": [ "@alanscodelog" ] },
 	"babel": { "presets": [ "@alanscodelog" ] },
 	"TOCONFIGURE browserslist":"> 0.5%, last 2 versions, not dead, not < 0.25%, not IE > 0, maintained node versions",
-	"engines": { "node": ">=10.0.0" },
+	"engines": { "node": ">=14.0.0" },
 	"@comments": {
 		"scripts": {
 			"TOCONFIGURE test": "Runs `lint:types` before (so that flags can be passed to the test command) so that we can test type assertions. See expect_type function in @alanscodelog/utils.",
