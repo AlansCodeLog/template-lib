@@ -37,7 +37,7 @@
 		"doc": "typedoc --options typedoc.config.js",
 		"doc:build": "onchange -i \"src/**/*.ts\" \"typedoc.config.js\" -- npm run doc",
 		"doc:serve": "http-server docs --port=5001",
-		"doc:dev": "concurrently \"yarn doc:build\" \"yarn doc:serve\"",
+		"doc:dev": "concurrently \"npm run doc:build\" \"npm run doc:serve\"",
 		"doc:check-invalid": "typedoc --options typedoc.config.js --listInvalidSymbolLinks",
 		"doc:check-missing": "rg \"@packageDocumentation @module\" --files-without-match -g \"*.ts\" -g \"!*.spec.ts\" -g \"!tests/**/*\" -g \"!src/index.ts\"",
 
@@ -100,7 +100,6 @@
 		"typedoc": "latest",
 		"typedoc-neo-theme": "latest",
 		"typedoc-plugin-external-module-name": "latest",
-		"typedoc-plugin-param-names": "latest",
 
 		"typescript": "latest",
 		"@alanscodelog/tsconfigs": "latest",
