@@ -1,6 +1,7 @@
-import { testName } from "@alanscodelog/utils"
+import { describe, expect, it } from "vitest"
 
-import { expect } from "@tests/chai"
+import { testName } from "@/testing"
+
 
 describe(testName(), () => {
 	it("missing tests", () => {
