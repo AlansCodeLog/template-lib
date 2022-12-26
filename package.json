@@ -8,7 +8,7 @@
 	"types": "dist/index.d.ts",
 	"type": "module",
 	"exports": {
-		".": {"types": "./dist/index.d.ts", "require": "./dist/index.cjs", "import": "./dist/index.js" }
+		".": { "types": "./dist/index.d.ts", "require": "./dist/index.cjs", "import": "./dist/index.js" }
 	},
 	"scripts": {
 
@@ -25,7 +25,7 @@
 		"coverage": "vitest --coverage",
 		"coverage:dev": "vitest --watch --coverage",
 
-		"test": "vitest",
+		"test": "npm run lint:types && vitest",
 		"test:watch": "vitest --watch",
 		"test:inspect-errors": "cross-env INSPECT_ERRORS=true npm run test",
 
@@ -38,43 +38,50 @@
 		"actions:debug": "act -r -v -j build-only",
 
 		"gen:exports": "indexit update -o '${path}.js'",
-
+		"link:local": "pnpm link -g @alanscodelog/utils && pnpm link -g @alanscodelog/semantic-release-config && pnpm link -g @alanscodelog/commitlint-config",
 		"prepare": "npm run build && husky install"
 	},
 	"dependencies": {
 		"@alanscodelog/utils": ""
 	},
 	"devDependencies": {
-		"typescript": "",
-		"@alanscodelog/tsconfigs": "",
-		"type-fest":"",
+		"type-fest":"^3.5.0",
 
-		"@types/node": "",
+		"vite": "^4.0.3",
+		"vitest": "^0.26.2",
+		"@vitest/coverage-c8": "^0.26.2",
+		"chai": "^4.3.7",
 
-		"@alanscodelog/semantic-release-config": "",
-		"@alanscodelog/commitlint-config": "",
-		"commitlint": "",
+		"typescript": "^4.9.4",
+		"tsc-alias": "^1.8.2",
+		"@alanscodelog/tsconfigs": "^3.0.0",
+		"@types/chai": "^4.3.4",
+		"@types/node": "^18.11.18",
 
-		"eslint": "",
-		"eslint-import-resolver-typescript": "",
-		"eslint-plugin-import": "",
-		"eslint-plugin-simple-import-sort": "",
-		"eslint-plugin-jsdoc": "",
-		"@typescript-eslint/eslint-plugin": "",
-		"@typescript-eslint/parser": "",
-		"@alanscodelog/eslint-config": "",
-		"eslint-plugin-vue": "",
-		"@vue/eslint-config-typescript": "",
+		"@alanscodelog/semantic-release-config": "^2.0.0",
+		"@alanscodelog/commitlint-config": "^2.0.0",
+		"commitlint": "^17.3.0",
 
-		"chai": "",
-		"typedoc": "",
+		"eslint": "^8.30.0",
+		"eslint-import-resolver-typescript": "^3.5.2",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-simple-import-sort": "^8.0.0",
+		"eslint-plugin-jsdoc": "^39.6.4",
+		"@typescript-eslint/eslint-plugin": "^5.47.1",
+		"@typescript-eslint/parser": "^5.47.1",
+		"@alanscodelog/eslint-config": "^3.0.2",
+		"eslint-plugin-vue": "^9.8.0",
+		"@vue/eslint-config-typescript": "^11.0.2",
 
-		"husky": "",
-		"indexit": "",
-		"onchange": "",
-		"concurrently": "",
-		"http-server": "",
-		"cross-env": ""
+		"typedoc": "^0.23.23",
+
+		"husky": "^8.0.2",
+		"indexit": "^2.0.1",
+		"onchange": "^7.1.0",
+		"concurrently": "^7.6.0",
+		"http-server": "^14.1.1",
+		"cross-env": "^7.0.3",
+		"pnpmfile-utils": "github:AlansCodeLog/pnpmfile-utils#master"
 	},
 	"author": "Alan <alanscodelog@gmail.com>",
 	"repository": "https://github.com/alanscodelog/TOREPONAME",

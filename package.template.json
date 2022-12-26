@@ -3,113 +3,78 @@
 	"description": "TOCONFIGURE",
 	"version": "0.0.0-semantically-released",
 	"TOCONFIGURE bin": "bin/index.js",
-	"TOCONFIGURE main": "dist/index.js",
-	"TOCONFIGURE types": "dist/index.d.ts",
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {"types": "./dist/index.d.ts", "require": "./dist/index.cjs", "import": "./dist/index.js" }
+	},
 	"scripts": {
-		"babel:run": "babel-node --extensions \".ts,.js\" --",
-		"babel:run:dev": "onchange -i \"src/**/*.ts\" -- babel-node --extensions \".ts,.js\" --",
 
-		"build:babel": "babel --extensions \".ts,.js\" src --out-dir dist --source-maps inline",
-		"build:watch": "npm run build:babel -- --watch",
-		"build:clean": "rm -rf dist && npm run build",
-		"TOCONFIGURE": "for lib",
-		"build:types": "tsc -p tsconfig.types.json && dts-alias -p tsconfig.types.json",
-		"build": "npm run build:babel && npm run build:types",
-		"TOCONFIGURE": "for cli",
-		"build": "npm run build:babel && npm run build:shebang",
-		"build:shebang": "node -e \"const fs = require('fs'); fs.writeFileSync('./bin/index.js', '#!/usr/bin/env node\\n' + fs.readFileSync('./bin/index.js'))\"",
+		"build": "vite build",
+		"build:dev": "vite build --mode development",
+		"build:types": "tsc -p tsconfig.types.json && npm run build:types:fix",
+		"build:types:fix": "tsc-alias -p tsconfig.types.json --debug",
 
-		"TOCONFIGURE lint:eslint": "eslint \"{src,tests,bin}/**/*.{js,ts}\" \"*.{js,ts}\" --max-warnings=0 --report-unused-disable-directives",
+		"lint:eslint": "eslint \"{src,tests,bin}/**/*.{js,ts}\" \"*.{js,ts}\" --max-warnings=0 --report-unused-disable-directives",
 		"lint:types": "tsc --noEmit --pretty",
 		"lint:commits": "commitlint --from $(git rev-list HEAD --not --remotes | tail -1)^ --to HEAD --verbose",
 		"lint": "npm run lint:types && npm run lint:eslint",
 
-		"coverage": "npm run test -- --coverage",
-		"coverage:dev": "concurrently \"http-server coverage/lcov-report --port=5000\" \"onchange -k -i \\\"src/**/*.ts\\\" \\\"jest.config.js\\\" --  npm run coverage -- --watch\"",
+		"coverage": "vitest --coverage",
+		"coverage:dev": "vitest --watch --coverage",
 
-		"TOCONFIGURE":"without type testing",
-		"test": "jest test --verbose",
-		"TOCONFIGURE":"with type testing",
-		"test": "npm run lint:types && jest test --verbose",
-		"test:debug": "node --inspect-brk node_modules/jest/bin/jest test --verbose",
-		"test:inspect-errors": "set INSPECT_ERRORS=true && test",
+		"test": "vitest",
+		"test:watch": "vitest --watch",
+		"test:inspect-errors": "cross-env INSPECT_ERRORS=true npm run test",
 
 		"doc": "typedoc --options typedoc.config.js",
 		"doc:build": "onchange -i \"src/**/*.ts\" \"typedoc.config.js\" -- npm run doc",
 		"doc:serve": "http-server docs --port=5001",
 		"doc:dev": "concurrently \"npm run doc:build\" \"npm run doc:serve\"",
 		"doc:check-invalid": "typedoc --options typedoc.config.js --listInvalidSymbolLinks",
-		"doc:check-missing": "rg \"@packageDocumentation @module\" --files-without-match -g \"*.ts\" -g \"!*.spec.ts\" -g \"!tests/**/*\" -g \"!src/index.ts\"",
 
 		"actions:debug": "act -r -v -j build-only",
 
-		"gen:exports": "indexit update",
+		"gen:exports": "indexit update -o '${path}.js'",
 
-		"audit:prod": "yarn audit --level moderate --groups dependencies",
-		"TOCONFIGURE prepare": "npm run build && husky install"
+		"prepare": "npm run build && husky install"
 	},
 	"dependencies": {
-		"@alanscodelog/utils": "latest",
-
-		"core-js": "latest"
+		"@alanscodelog/utils": ""
 	},
 	"devDependencies": {
-		"type-fest":"latest",
+		"typescript": "",
+		"@alanscodelog/tsconfigs": "",
+		"type-fest":"",
 
-		"@types/node": "latest",
+		"@types/node": "",
 
-		"semantic-release": "latest",
-		"@semantic-release/changelog": "latest",
-		"@semantic-release/commit-analyzer": "latest",
-		"@semantic-release/github": "latest",
-		"@semantic-release/npm": "latest",
-		"@semantic-release/release-notes-generator": "latest",
-		"conventional-changelog-conventionalcommits": "latest",
-		"@alanscodelog/semantic-release-config": "latest",
-		"@alanscodelog/commitlint-config": "latest",
-		"commitlint": "latest",
+		"@alanscodelog/semantic-release-config": "",
+		"@alanscodelog/commitlint-config": "",
+		"commitlint": "",
 
-		"@babel/cli": "latest",
-		"@babel/core": "latest",
-		"@babel/node": "latest",
-		"@babel/preset-env": "latest",
-		"@babel/preset-typescript": "latest",
-		"@babel/plugin-proposal-export-namespace-from": "latest",
-		"@babel/plugin-proposal-class-properties": "latest",
-		"babel-plugin-module-resolver": "latest",
-		"@alanscodelog/babel-preset": "latest",
+		"eslint": "",
+		"eslint-import-resolver-typescript": "",
+		"eslint-plugin-import": "",
+		"eslint-plugin-simple-import-sort": "",
+		"eslint-plugin-jsdoc": "",
+		"@typescript-eslint/eslint-plugin": "",
+		"@typescript-eslint/parser": "",
+		"@alanscodelog/eslint-config": "",
+		"eslint-plugin-vue": "",
+		"@vue/eslint-config-typescript": "",
 
-		"eslint": "latest",
-		"eslint-import-resolver-typescript": "latest",
-		"eslint-plugin-import": "latest",
-		"eslint-plugin-simple-import-sort": "latest",
-		"eslint-plugin-jsdoc": "latest",
-		"@typescript-eslint/eslint-plugin": "latest",
-		"@typescript-eslint/parser": "latest",
-		"@alanscodelog/eslint-config": "latest",
-		"TOCONFIGURE": "if vue",
-		"eslint-plugin-vue": "latest",
-		"@vue/eslint-config-typescript": "latest",
+		"chai": "",
+		"typedoc": "",
 
-		"chai": "latest",
-		"jest": "latest",
-		"jest-watch-typeahead": "latest",
-		"@types/chai": "latest",
-		"@types/jest": "latest",
-
-		"typedoc": "latest",
-		"typedoc-neo-theme": "latest",
-		"typedoc-plugin-external-module-name": "latest",
-
-		"typescript": "latest",
-		"@alanscodelog/tsconfigs": "latest",
-		"TOCONFIGURE dts-alias": "latest",
-
-		"husky": "latest",
-		"indexit": "latest",
-		"onchange": "latest",
-		"concurrently": "latest",
-		"TOCONFIGURE http-server": "latest"
+		"husky": "",
+		"indexit": "",
+		"onchange": "",
+		"concurrently": "",
+		"http-server": "",
+		"cross-env": ""
 	},
 	"author": "Alan <alanscodelog@gmail.com>",
 	"repository": "https://github.com/alanscodelog/TOREPONAME",
@@ -121,12 +86,11 @@
 	],
 	"release": { "extends": [ "@alanscodelog/semantic-release-config" ] },
 	"commitlint": { "extends": [ "@alanscodelog" ] },
-	"babel": { "presets": [ "@alanscodelog" ] },
 	"TOCONFIGURE browserslist":"> 0.5%, last 2 versions, not dead, not < 0.25%, not IE > 0, maintained node versions",
-	"engines": { "node": ">=14.0.0" },
+	"engines": { "node": ">=16.0.0" },
 	"@comments": {
 		"scripts": {
-			"TOCONFIGURE test": "Runs `lint:types` before (so that flags can be passed to the test command) so that we can test type assertions. See expect_type function in @alanscodelog/utils.",
+			"test": "Runs `lint:types` before (so that flags can be passed to the test command) so that we can test type assertions. See expect_type function in @alanscodelog/utils.",
 			"lint:commits": "Lints all unpushed commits in the active branch.",
 			"test:inspect_errors": "For use with my inspect_error utility function from @alanscodelog/utils",
 			"prepare": "Needed so that if we pull the package from git it will get built and installed properly.",
@@ -136,7 +100,6 @@
 	"TOCONFIGURE (for scoped packages) publishConfig": {
 		"access": "public"
 	},
-	"TOCONFIGURE private": true,
-	"TEMPLATE:COMMIT": "Ignore. Commit of the template this was created with / last updated to."
+	"private": true
 }
 
