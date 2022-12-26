@@ -1,0 +1,16 @@
+// https://www.typescriptlang.org/tsconfig/
+{
+	"extends": "./tsconfig",
+	"compilerOptions": {
+		"outDir": "dist",
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": true,
+		"noEmit": false,
+		"allowJs": false
+	},
+	"exclude": [
+		"tests/**/*.ts",
+		"*.ts"
+	]
+}
