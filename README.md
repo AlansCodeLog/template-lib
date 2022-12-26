@@ -25,8 +25,8 @@ yarn add TONAME
 
 My template repo for typescript libraries. I have found myself setting up the same things over and over again so I decided to create a small template. It includes:
 
-- typedoc for generating docs.
-- jest and chai (I prefer the syntax) for tests
+- typedoc for generating docs
+- vitest and chai (I prefer the syntax) for tests
 - build/coverabe/docs/release github actions
 - semantic release and commitlint for handling releases
 - husky for handling git hooks
@@ -35,29 +35,10 @@ My template repo for typescript libraries. I have found myself setting up the sa
 
 I have also made repos for the configs that rarely change to help declutter things a bit:
 
-- [`@alanscodelog/babel-preset`](https://github.com/alanscodelog/babel-preset)
 - [`@alanscodelog/commitlint-config`](https://github.com/alanscodelog/commitlint-config)
 - [`@alanscodelog/eslint-config`](https://github.com/alanscodelog/eslint-config)
 - [`@alanscodelog/semantic-release-config`](https://github.com/alanscodelog/my-semantic-release-config)
 - [`@alanscodelog/tsconfigs`](https://github.com/alanscodelog/my-tsconfigs)
-
-# Install
-```bash
-git clone https://github.com/alanscodelog/template-lib.git
-mv template-lib PROJECTNAME
-cd PROJECTNAME
-node .template/install.mjs
-```
-`.template/install.mjs` can also be npm linked by itself. So a copy of the template can be kept around with the script linked for updating dependencies (by replacing their version number with a tag).
-
-Options:
-`-d / --dry-run` - preview
-`-v / --verbose` - print name parsed and all edited files
-`-s / --scope` - scope package under @alanscodelog
-`-n / --no-delete` - do not delete template files
-`-u / --only-update` - re-calculate / update dependencies on `package.json` - will only update if a tag is used. Useful for updating only some deps to latest or a specific tag, like beta without having to `npm view` then copy the version.
-
-The script will then print some commands that need to be run after running `yarn install` (to copy/install some of my configs) and to find all the places the template still needs to be configured.
 
 # Notes
 

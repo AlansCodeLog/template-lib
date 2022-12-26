@@ -1,0 +1,105 @@
+{
+	"name": "TONAME",
+	"description": "TOCONFIGURE",
+	"version": "0.0.0-semantically-released",
+	"TOCONFIGURE bin": "bin/index.js",
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {"types": "./dist/index.d.ts", "require": "./dist/index.cjs", "import": "./dist/index.js" }
+	},
+	"scripts": {
+
+		"build": "vite build",
+		"build:dev": "vite build --mode development",
+		"build:types": "tsc -p tsconfig.types.json && npm run build:types:fix",
+		"build:types:fix": "tsc-alias -p tsconfig.types.json --debug",
+
+		"lint:eslint": "eslint \"{src,tests,bin}/**/*.{js,ts}\" \"*.{js,ts}\" --max-warnings=0 --report-unused-disable-directives",
+		"lint:types": "tsc --noEmit --pretty",
+		"lint:commits": "commitlint --from $(git rev-list HEAD --not --remotes | tail -1)^ --to HEAD --verbose",
+		"lint": "npm run lint:types && npm run lint:eslint",
+
+		"coverage": "vitest --coverage",
+		"coverage:dev": "vitest --watch --coverage",
+
+		"test": "vitest",
+		"test:watch": "vitest --watch",
+		"test:inspect-errors": "cross-env INSPECT_ERRORS=true npm run test",
+
+		"doc": "typedoc --options typedoc.config.cjs",
+		"doc:build": "onchange -i \"src/**/*.ts\" \"typedoc.config.cjs\" -- npm run doc",
+		"doc:serve": "http-server docs --port=5001",
+		"doc:dev": "concurrently \"npm run doc:build\" \"npm run doc:serve\"",
+		"doc:check-invalid": "typedoc --options typedoc.config.cjs --listInvalidSymbolLinks",
+
+		"actions:debug": "act -r -v -j build-only",
+
+		"gen:exports": "indexit update -o '${path}.js'",
+
+		"prepare": "npm run build && husky install"
+	},
+	"dependencies": {
+		"@alanscodelog/utils": ""
+	},
+	"devDependencies": {
+		"typescript": "",
+		"@alanscodelog/tsconfigs": "",
+		"type-fest":"",
+
+		"@types/node": "",
+
+		"@alanscodelog/semantic-release-config": "",
+		"@alanscodelog/commitlint-config": "",
+		"commitlint": "",
+
+		"eslint": "",
+		"eslint-import-resolver-typescript": "",
+		"eslint-plugin-import": "",
+		"eslint-plugin-simple-import-sort": "",
+		"eslint-plugin-jsdoc": "",
+		"@typescript-eslint/eslint-plugin": "",
+		"@typescript-eslint/parser": "",
+		"@alanscodelog/eslint-config": "",
+		"eslint-plugin-vue": "",
+		"@vue/eslint-config-typescript": "",
+
+		"chai": "",
+		"typedoc": "",
+
+		"husky": "",
+		"indexit": "",
+		"onchange": "",
+		"concurrently": "",
+		"http-server": "",
+		"cross-env": ""
+	},
+	"author": "Alan <alanscodelog@gmail.com>",
+	"repository": "https://github.com/alanscodelog/TOREPONAME",
+	"license": "MIT",
+	"TOCONFIGURE files": [
+		"src",
+		"dist",
+		"bin"
+	],
+	"release": { "extends": [ "@alanscodelog/semantic-release-config" ] },
+	"commitlint": { "extends": [ "@alanscodelog" ] },
+	"TOCONFIGURE browserslist":"> 0.5%, last 2 versions, not dead, not < 0.25%, not IE > 0, maintained node versions",
+	"engines": { "node": ">=16.0.0" },
+	"@comments": {
+		"scripts": {
+			"test": "Runs `lint:types` before (so that flags can be passed to the test command) so that we can test type assertions. See expect_type function in @alanscodelog/utils.",
+			"lint:commits": "Lints all unpushed commits in the active branch.",
+			"test:inspect_errors": "For use with my inspect_error utility function from @alanscodelog/utils",
+			"prepare": "Needed so that if we pull the package from git it will get built and installed properly.",
+			"actions:debug": "For debugging github build action locally with nektos/act. Requires act and docker. Note: Cache will never work locally because of https://github.com/nektos/act/issues/285"
+		}
+	},
+	"TOCONFIGURE (for scoped packages) publishConfig": {
+		"access": "public"
+	},
+	"private": true
+}
+

@@ -3,19 +3,8 @@
 .vscode
 node_modules
 worktree*/**/*
-# TOCONFIGURE
 docs
 coverage
 
-# TOCONFIGURE
 dist
 bin
-
-# template
-# deleted by installer
-tsconfig.json
-tsconfig.types.json
-.eslintrc.js
-tests/.eslintrc.js
-package.json
-**/*lock
