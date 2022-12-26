@@ -2,13 +2,13 @@ name: Docs
 
 env:
   USE_LOCKFILE: false
+  ENABLE_DOCS: false
 
 on:
   push:
     branches: [ master ]
   repository_dispatch:
     types: [ docs ]
-    # to trigger: curl -v -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token $GH_TOKEN" https://api.github.com/repos/alanscodelog/TOREPONAME/dispatches -d '{ "event_type": "docs" }'
 
 jobs:
   docs:
@@ -16,8 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        #TOCONFIGURE awaiting https://github.com/actions/setup-node/issues/26 so we can just set this to [latest]
-        node-version: [17.x]
+        node-version: ["latest"]
 
     steps:
 
@@ -25,7 +24,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Setting Up Node.js (${{ matrix.node-version }})
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -36,13 +35,11 @@ jobs:
           version: latest
 
     - name: Get Pnpm Cache Path
-      if: "env.USE_LOCKFILE == 'true'"
       id: pnpm-cache
       run: |
         echo "::set-output name=dir::$(pnpm store path)"
 
     - uses: actions/cache@v3
-      if: "env.USE_LOCKFILE == 'true'"
       name: pnpm cache
       with:
         path: ${{ steps.pnpm-cache.outputs.dir }}
@@ -55,23 +52,21 @@ jobs:
     - run: "echo Pnpm Cache Hit: ${{ steps.pnpm-cache.outputs.cache-hit }}"
     # regionend
 
-    # region Steps
     - run: pnpm install --frozen-lockfile
       if: "env.USE_LOCKFILE == 'true'"
 
-    - run: pnpm install
-
-    - run: pnpm build
-
-    - run: pnpm doc
+    - run: pnpm install --no-lockfile
+      if: "env.USE_LOCKFILE == 'false'"
 
     - name: Documentation
-      # TOCONFIGURE
-      if: "env.REMOVE_LINE_TO_ENABLE == 'true'"
+      if: "env.ENABLE_DOCS == 'true'"
       uses: crazy-max/ghaction-github-pages@v2
       with:
         target_branch: gh-pages
         build_dir: docs
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - run: echo "env.ENABLE_DOCS is ${{ env.ENABLE_DOCS }}, no documentation can be published" && exit 1
+      if: "env.ENABLE_DOCS == 'false'"
     # regionend
