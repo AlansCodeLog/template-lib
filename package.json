@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@alanscodelog/utils": "^0.0.0-semantically-released",
+    "@alanscodelog/utils": "^3.2.0",
     "@types/node": "^18.11.18",
     "colors": "^1.4.0",
     "diff": "^5.1.0",
