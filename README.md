@@ -44,7 +44,25 @@ I have also made repos for the configs that rarely change to help declutter thin
 
 - The full github url is used in the package.json instead of the nice `github:user/repo` shorthand because then that information can easily accessed by typedoc.
 
+# Install
 
+This used to have a more complicated "install" script, but it was not easy to use and fragile.
+
+I have created a new one that just diffs and optionally copies certain files. It's lost some features (like auto renaming of REPONAME variables), but is much easier to use.
+
+This is not published, so I just link the package globally, then:
+```sh
+tempalte-lib [part-name] --flags
+
+template-lib --help #will print out all the part names and flags
+```
+
+Workflow is usually:
+```sh
+template-lib KEY | more # review and copy small changes
+
+template-lib [part-name] --copy # for larger changes that should always be in sync between libraries, like the github action workflows
+```
 # Todo
 
 - Convert to package.
