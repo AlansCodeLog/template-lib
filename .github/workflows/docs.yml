@@ -1,8 +1,8 @@
 name: Docs
 
 env:
-  USE_LOCKFILE: false
-  ENABLE_DOCS: false
+  USE_LOCKFILE: ${{ secrets.USE_LOCKFILE }}
+  ENABLE_DOCS: ${{ secrets.ENABLE_DOCS }}
 
 on:
   push:
@@ -56,7 +56,7 @@ jobs:
       if: "env.USE_LOCKFILE == 'true'"
 
     - run: pnpm install --no-lockfile
-      if: "env.USE_LOCKFILE == 'false'"
+      if: "env.USE_LOCKFILE != 'true'"
 
     - name: Documentation
       if: "env.ENABLE_DOCS == 'true'"
@@ -68,5 +68,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - run: echo "env.ENABLE_DOCS is ${{ env.ENABLE_DOCS }}, no documentation can be published" && exit 1
-      if: "env.ENABLE_DOCS == 'false'"
+      if: "env.ENABLE_DOCS != 'true'"
     # regionend

@@ -1,8 +1,8 @@
 name: Release
 
 env:
-  USE_LOCKFILE: false
-  ENABLE_RELEASE: false
+  USE_LOCKFILE: ${{ secrets.USE_LOCKFILE }}
+  ENABLE_RELEASE: ${{ secrets.ENABLE_RELEASE }}
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ["lts/*"]
+        node-version: ["lts/-2"]
 
     steps:
 
@@ -57,7 +57,7 @@ jobs:
       if: "env.USE_LOCKFILE == 'true'"
 
     - run: pnpm install
-      if: "env.USE_LOCKFILE == 'false'"
+      if: "env.USE_LOCKFILE != 'true'"
 
     - run: pnpm build
 
@@ -73,5 +73,5 @@ jobs:
       run: npx semantic-release
 
     - run: echo "env.ENABLE_RELEASE is ${{ env.ENABLE_RELEASE }}, no release can be published" && exit 1
-      if: "env.ENABLE_RELEASE == 'false'"
+      if: "env.ENABLE_RELEASE != 'true'"
     # regionend

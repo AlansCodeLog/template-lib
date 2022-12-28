@@ -3,7 +3,7 @@ name: Build-Only
 # does not use cache
 
 env:
-  USE_LOCKFILE: false
+  USE_LOCKFILE: ${{ secrets.USE_LOCKFILE }}
 
 on:
   push:
@@ -57,7 +57,7 @@ jobs:
       if: "env.USE_LOCKFILE == 'true'"
 
     - run: pnpm install --no-lockfile
-      if: "env.USE_LOCKFILE == 'false'"
+      if: "env.USE_LOCKFILE != 'true'"
 
     - run: pnpm build
 

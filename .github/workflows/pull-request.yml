@@ -1,7 +1,7 @@
 name: Pull Request Checks
 
 env:
-  USE_LOCKFILE: false
+  USE_LOCKFILE: ${{ secrets.USE_LOCKFILE }}
 
 on:
   pull_request:
@@ -54,7 +54,7 @@ jobs:
       if: "env.USE_LOCKFILE == 'true'"
 
     - run: pnpm install --no-lockfile
-      if: "env.USE_LOCKFILE == 'false'"
+      if: "env.USE_LOCKFILE != 'true'"
 
     - name: Commits to Lint
       run: git log ${{github.event.pull_request.base.sha}}..${{github.event.pull_request.head.sha}} --graph --abbrev-commit --decorate --format=format:'%h%d%n%s (%cr) - %an (%ae)%n%b'

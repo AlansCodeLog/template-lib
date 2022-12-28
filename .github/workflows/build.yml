@@ -2,7 +2,7 @@ name: Build
 # not technically necessary because release also runs tests but this way the build badge is separate
 
 env:
-  USE_LOCKFILE: false
+  USE_LOCKFILE: ${{ secrets.USE_LOCKFILE }}
 
 on:
   #TOCONFIGURE
@@ -62,7 +62,7 @@ jobs:
       if: "env.USE_LOCKFILE == 'true'"
 
     - run: pnpm install --no-lockfile
-      if: "env.USE_LOCKFILE == 'false'"
+      if: "env.USE_LOCKFILE != 'true'"
 
     - run: pnpm build
 
