@@ -53,6 +53,7 @@ async function diffOrCopy(files, flags) {
 		}
 		if (flags.copy && !flags.dry) {
 			promises.push((async () => {
+				await fs.mkdir(path.dirname(outFilepath), { recursive: true })
 				await fs.copyFile(filepath, outFilepath, )
 				return []
 			})())
