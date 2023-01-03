@@ -4,12 +4,14 @@ import glob from "fast-glob"
 import path from "path"
 
 import * as url from 'url'
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 import {crop, indent, colors, isBlank} from "@alanscodelog/utils"
 import {run} from "@alanscodelog/utils/node"
 
 
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const templateDir = path.resolve(__dirname, "template")
 const projectDir = process.cwd()
+
 async function diffOrCopy(files, flags) {
 	const promises = []
 	const willOverwrite = []
@@ -17,7 +19,7 @@ async function diffOrCopy(files, flags) {
 	for (const file of files) {
 		const relativeFile = typeof file === "object" ? file.file : file
 		const relativeFileOut = typeof file === "object" ? file.out : file
-		const filepath = path.resolve(__dirname, relativeFile)
+		const filepath = path.resolve(templateDir, relativeFile)
 		const outFilepath = path.resolve(relativeFileOut)
 		if (flags.dry) {
 			willOverwrite.push(typeof file === "object" ? file.out : file)
@@ -28,7 +30,8 @@ async function diffOrCopy(files, flags) {
 				info.push(`${colors.yellow}${relativeFile}${colors.reset}`)
 					if (existsSync(outFilepath)) {
 						// no pager so it writes to stdout
-						const command = `git --no-pager diff --no-index --color ${outFilepath} ${filepath} | cat`
+						// color words so we don't get numbers, makes copying easier
+						const command = `git --no-pager diff --no-index --color-words ${outFilepath} ${filepath} | cat`
 						const res = await run(command)
 							.catch(e => {
 								// error code 1 means there's a difference
@@ -50,7 +53,7 @@ async function diffOrCopy(files, flags) {
 		}
 		if (flags.copy && !flags.dry) {
 			promises.push((async () => {
-				fs.copyFile(filepath, outFilepath)
+				await fs.copyFile(filepath, outFilepath, )
 				return []
 			})())
 		}
@@ -69,9 +72,10 @@ async function diffOrCopy(files, flags) {
 }
 
 function main(args) {
+
 	const fastGlobOpts = {
-		cwd: __dirname,
-		ignore: ["**/node_modules/**"],
+		cwd: templateDir,
+		ignore: ["**/node_modules/**", "*lock*", "*log*"],
 	}
 	const flags = {
 		"dry": args.includes("--dry") || args.includes("-d"),
@@ -83,6 +87,7 @@ function main(args) {
 	}
 	const commands = {
 		KEY: async () => { //as in only key parts
+			if (flags.all) return
 			await Promise.all(["gh", "husky", "ts", "eslint", "vite", "package"].map(type => commands[type]()))
 		},
 		gh: async () => {
@@ -111,7 +116,7 @@ function main(args) {
 			await diffOrCopy(await glob("vite*", fastGlobOpts), flags)
 		},
 		package: async () => {
-			await diffOrCopy([{file:"package.template.json", out: "package.json"}], flags)
+			await diffOrCopy(["package.json"], flags)
 		},
 		readme: async () => {
 			await diffOrCopy(["README.md"], flags)

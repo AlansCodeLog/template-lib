@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { testName } from "@/testing"
+import { testName } from "@alanscodelog/utils"
 
 
 describe(testName(), () => {

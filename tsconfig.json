@@ -1,35 +1,8 @@
 // https://www.typescriptlang.org/tsconfig/
 {
-	// ./node_modules/@alanscodelog/tsconfigs/tsconfig.json
-	// https://github.com/AlansCodeLog/my-tsconfigs
-	"extends": "@alanscodelog/tsconfigs",
 	"compilerOptions": {
-		"outDir": "dist",
-		"module": "NodeNext",
-		"baseUrl": ".",
-		"moduleResolution": "NodeNext",
-		"paths": {
-			// classic (non-esm) non-prefixed style paths unless refering to specific file (@/somefile.js, @/path/to/some/file.js)
-			// #awaiting typescript import remap support
-			"@/*": ["src/*", "src/*/index.js"],
-			"@tests/*": ["tests/*", "tests/*/index.js"]
-		}
-	},
-	"types" : [
-		"node"
-	],
-	"lib": [
-		"esnext"
-	],
-	"include": [
-		"src/**/*.ts",
-		"tests/**/*.ts",
-		// so eslint doesn't bother us, we don't build with tsc anyways, and to emit types, there's tsconfig.types.json
-		"*.ts"
-	],
-	"exclude": [
-	],
-	"tsc-alias": {
-		"resolveFullPaths": true
+		"types": [
+			"node"
+		]
 	}
 }

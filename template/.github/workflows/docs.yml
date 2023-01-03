@@ -58,6 +58,14 @@ jobs:
     - run: pnpm install --no-lockfile
       if: "env.USE_LOCKFILE != 'true'"
 
+    - run: pnpm build
+
+    - run: pnpm lint
+
+    - run: pnpm test
+
+    - run: pnpm doc
+
     - name: Documentation
       if: "env.ENABLE_DOCS == 'true'"
       uses: crazy-max/ghaction-github-pages@v2

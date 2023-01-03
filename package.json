@@ -1,19 +1,18 @@
 {
-  "name": "template-lib",
-  "version": "1.0.0",
-  "description": "",
-  "bin": "bin.js",
-  "type": "module",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@alanscodelog/utils": "^0.0.0-semantically-released",
-    "@types/node": "^18.11.18",
-    "colors": "^1.4.0",
-    "diff": "^5.1.0",
-    "fast-glob": "^3.2.12",
-    "pnpmfile-utils": "github:AlansCodeLog/pnpmfile-utils#master"
-  }
+	"name": "template-lib",
+	"version": "1.0.0",
+	"description": "",
+	"keywords": [],
+	"license": "ISC",
+	"author": "",
+	"type": "module",
+	"bin": "bin.js",
+	"scripts": {},
+	"dependencies": {
+		"@alanscodelog/utils": "^4.0.0-beta.2",
+		"@types/node": "^18.11.18",
+		"colors": "^1.4.0",
+		"diff": "^5.1.0",
+		"fast-glob": "^3.2.12"
+	}
 }

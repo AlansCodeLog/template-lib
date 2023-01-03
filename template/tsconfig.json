@@ -1,0 +1,34 @@
+// https://www.typescriptlang.org/tsconfig/
+{
+	// ./node_modules/@alanscodelog/tsconfigs/tsconfig.json
+	// https://github.com/AlansCodeLog/tsconfigs
+	"extends": "@alanscodelog/tsconfigs",
+	"compilerOptions": {
+		"outDir": "dist",
+		"baseUrl": "src",
+		"paths": {
+			// classic (non-esm) non-prefixed style paths unless refering to specific file (@/somefile.js, @/path/to/some/file.js)
+			// #awaiting typescript import remap support
+			// will not work for nuxt modules
+			"@/*": [ "src/*", "src/*/index.js" ],
+			"@tests/*": [ "tests/*", "tests/*/index.js" ]
+		},
+		"types": [ /* "node" */ ],
+		// the libs are explicitly specified because otherwise typescript includes the dom by default
+		"lib": [ /* "dom", */ "esnext" ]
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.js",
+		"src/**/*.vue",
+		"tests/**/*.ts",
+		// so eslint doesn't bother us, we don't build with tsc anyways, and to emit types, there's tsconfig.types.json
+		"*.ts",
+		"*.cjs",
+		"*.js"
+	],
+	"exclude": [],
+	"tsc-alias": {
+		"resolveFullPaths": true // for esm compatibility
+	}
+}
