@@ -89,10 +89,13 @@ function main(args) {
 	const commands = {
 		KEY: async () => { //as in only key parts
 			if (flags.all) return
-			await Promise.all(["gh", "husky", "ts", "eslint", "vite", "package"].map(type => commands[type]()))
+			await Promise.all(["gh","git", "husky", "ts", "eslint", "vite", "package"].map(type => commands[type]()))
 		},
 		gh: async () => {
 			await diffOrCopy(await glob(".github/**/*", fastGlobOpts), flags)
+		},
+		git: async () => {
+			await diffOrCopy(await glob(".git*", fastGlobOpts), flags)
 		},
 		gh_build: async () => {
 			await diffOrCopy([".github/workflows/build.yml"], flags)
