@@ -47,7 +47,7 @@ export default ({ mode }: { mode: string }) => defineConfig({
 			},
 		},
 		rollupOptions: {
-			external: [...builtinModules, ...Object.keys((packageJson as any).peerDependencies ?? {}), /@babel\/runtime/],
+			external: [...builtinModules, ...Object.keys((packageJson as any).dependencies ?? {}), ...Object.keys((packageJson as any).peerDependencies ?? {}), /@babel\/runtime/],
 			output: {
 				preserveModulesRoot: "src",
 				preserveModules: true,
