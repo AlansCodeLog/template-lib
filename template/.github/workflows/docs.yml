@@ -70,6 +70,7 @@ jobs:
       if: "env.ENABLE_DOCS == 'true'"
       uses: crazy-max/ghaction-github-pages@v2
       with:
+        jekyll: false
         target_branch: gh-pages
         build_dir: docs
       env:
