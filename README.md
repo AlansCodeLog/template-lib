@@ -21,6 +21,8 @@ I have also made repos for the configs that rarely change to help declutter thin
 - The full github url is used in the package.json instead of the nice `github:user/repo` shorthand because then that information can easily accessed by typedoc.
 - Madge can report false positives because of typescript `import type` imports. This can be fixed by adding a config file, but I'm not adding one for a single option. It's pretty obvious anyways when it's a type import, since I keep all types in a `types/*` folder in all my projects. Also doesn't work with vue files.
 	- Needed because circular imports can bring a lot of problems, especially with esm. Convenience imports, like importing from a folder index are a no no if preserving modules when compiling.
+- Scripts use `npm run` even though I use pnpm, so that it's maximally compatible in the case of testing issues, etc with other package managers.
+- `@comments` property of package.json explains other non-obvious things.
 
 # Install
 
@@ -43,4 +45,6 @@ template-lib [part-name] --copy # for larger changes that should always be in sy
 ```
 # Todo
 
-- Convert to package.
+- [x] Convert to package.
+- [ ] Publish package.
+- [ ] Re-add renaming capibilities.
