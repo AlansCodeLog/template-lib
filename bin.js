@@ -77,6 +77,7 @@ function main(args) {
 	const fastGlobOpts = {
 		cwd: templateDir,
 		ignore: ["**/node_modules/**", "*lock*", "*log*"],
+		onlyFiles:true
 	}
 	const flags = {
 		"dry": args.includes("--dry") || args.includes("-d"),
