@@ -114,6 +114,9 @@ function main(args) {
 		ts: async () => {
 			await diffOrCopy(await glob("tsconfig*", fastGlobOpts), flags)
 		},
+		docs: async () => {
+			await diffOrCopy(await glob("typedoc*", fastGlobOpts), flags)
+		},
 		eslint: async () => {
 			await diffOrCopy(await glob([".eslintrc*", "**/.eslintrc*"], fastGlobOpts), flags)
 		},
