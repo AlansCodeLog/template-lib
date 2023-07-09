@@ -7,11 +7,6 @@
 		"outDir": "dist",
 		"baseUrl": "src",
 		"paths": {
-			// classic (non-esm) non-prefixed style paths unless refering to specific file (@/somefile.js, @/path/to/some/file.js)
-			// #awaiting typescript import remap support
-			// will not work for nuxt modules
-			"@/*": [ "src/*", "src/*/index.js" ],
-			"@tests/*": [ "tests/*", "tests/*/index.js" ]
 		},
 		"types": [ /* "node" */ ],
 		// the libs are explicitly specified because otherwise typescript includes the dom by default
