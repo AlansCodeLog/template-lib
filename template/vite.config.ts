@@ -1,5 +1,4 @@
 import { run } from "@alanscodelog/utils/node"
-import { babel } from "@rollup/plugin-babel"
 import glob from "fast-glob"
 import { builtinModules } from "module"
 import path from "path"
@@ -13,25 +12,12 @@ import packageJson from "./package.json"
 const typesPlugin = (): PluginOption => ({
 	name: "typesPlugin",
 	// eslint-disable-next-line no-console
-	writeBundle: () => run("npm run build:types").catch(e => console.log(e)).then(() => undefined),
+	writeBundle: async () => run("npm run build:types").promise.catch(e => console.log(e)).then(() => undefined),
 })
 
 // https://vitejs.dev/config/
-export default ({ mode }: { mode: string }) => defineConfig({
+export default async ({ mode }: { mode: string }) => defineConfig({
 	plugins: [
-		babel({
-			babelHelpers: "runtime",
-			extensions: [".js", ".mjs", "ts"],
-			presets: [
-				["@babel/preset-env", {
-					modules: false,
-					useBuiltIns: "usage",
-					debug: true,
-					corejs: packageJson.dependencies["core-js"].slice(1, 4),
-				}],
-			],
-			plugins: ["@babel/plugin-transform-runtime"],
-		}),
 		// even if we don't use aliases, this is needed to get imports based on baseUrl working
 		tsconfigPaths(),
 		typesPlugin(),
