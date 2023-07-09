@@ -14,32 +14,26 @@
 	},
 	"scripts": {
 		"debug": "ts-node -r tsconfig-paths/register -T --esm",
-
 		"build": "vite build",
 		"build:dev": "vite build --mode development",
 		"build:watch": "vite build --watch --mode production",
 		"build:types": "tsc -p tsconfig.types.json && npm run build:types:fix",
 		"build:types:fix": "tsc-alias -p tsconfig.types.json --debug",
-
 		"lint:eslint": "eslint \"{src,tests,bin}/**/*.{cjs,js,ts}\" \"*.{cjs,js,ts}\" --max-warnings=0 --report-unused-disable-directives",
 		"lint:types": "tsc --noEmit --pretty",
 		"lint:commits": "commitlint --from $(git rev-list --max-parents=0 HEAD) --to HEAD --verbose",
 		"lint:imports": "madge --circular --extensions ts ./src",
 		"lint": "npm run lint:types && npm run lint:eslint",
-
 		"coverage": "vitest --coverage",
 		"coverage:dev": "vitest --watch --coverage",
-
 		"test": "npm run lint:types && vitest run",
 		"test:watch": "vitest --watch",
 		"test:inspect-errors": "cross-env INSPECT_ERRORS=true npm run test",
-
 		"doc": "typedoc --options typedoc.config.cjs",
 		"doc:watch": "onchange -i \"src/**/*.ts\" \"typedoc.config.cjs\" -- npm run doc",
 		"doc:serve": "http-server docs --port=5001",
 		"doc:dev": "concurrently \"npm run doc:watch\" \"npm run doc:serve\"",
 		"doc:check-invalid": "typedoc --options typedoc.config.cjs --listInvalidSymbolLinks",
-
 		"actions:debug": "act -r -v -j build-only",
 		"gen:exports": "indexit update -o '${path}.js'",
 		"prepare": "husky install && npm run build"
@@ -51,30 +45,30 @@
 	},
 	"devDependencies": {
 		"@alanscodelog/commitlint-config": "^2.0.0",
-		"@alanscodelog/eslint-config": "^4.0.0",
-		"@alanscodelog/semantic-release-config": "^2.0.1",
-		"@alanscodelog/tsconfigs": "^3.1.3",
-		"@types/node": "^18.11.18",
-		"@typescript-eslint/eslint-plugin": "^5.47.1",
-		"@typescript-eslint/parser": "^5.47.1",
-		"@vitest/coverage-c8": "^0.26.3",
-		"@vue/eslint-config-typescript": "^11.0.2",
-		"commitlint": "^17.3.0",
-		"concurrently": "^7.6.0",
+		"@alanscodelog/eslint-config": "^4.0.3",
+		"@alanscodelog/semantic-release-config": "^3.0.0",
+		"@alanscodelog/tsconfigs": "^3.2.0",
+		"@types/node": "^20.4.1",
+		"@typescript-eslint/eslint-plugin": "^5.61.0",
+		"@typescript-eslint/parser": "^5.61.0",
+		"@vitest/coverage-c8": "^0.33.0",
+		"@vue/eslint-config-typescript": "^11.0.3",
+		"commitlint": "^17.6.6",
+		"concurrently": "^8.2.0",
 		"cross-env": "^7.0.3",
-		"eslint-import-resolver-typescript": "^3.5.2",
-		"eslint-plugin-import": "^2.26.0",
-		"eslint-plugin-jsdoc": "^39.6.4",
-		"eslint-plugin-simple-import-sort": "^8.0.0",
-		"eslint-plugin-vue": "^9.8.0",
-		"eslint": "^8.31.0",
-		"fast-glob": "^3.2.12",
+		"eslint": "^8.44.0",
+		"eslint-import-resolver-typescript": "^3.5.5",
+		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-jsdoc": "^46.4.3",
+		"eslint-plugin-simple-import-sort": "^10.0.0",
+		"eslint-plugin-vue": "^9.15.1",
+		"fast-glob": "^3.3.0",
 		"http-server": "^14.1.1",
-		"husky": "^8.0.2",
-		"indexit": "^2.1.0-beta.3",
-		"madge":"^5.0.1",
+		"husky": "^8.0.3",
+		"indexit": "^2.0.1",
+		"madge": "^6.1.0",
 		"onchange": "^7.1.0",
-		"semantic-release": "^19.0.5",
+		"semantic-release": "^21.0.7",
 		"ts-node": "^10.9.1",
 		"tsc-alias": "^1.8.7",
 		"type-fest": "^3.13.0",
@@ -93,9 +87,17 @@
 		"dist",
 		"bin"
 	],
-	"release": { "extends": [ "@alanscodelog/semantic-release-config" ] },
-	"commitlint": { "extends": [ "@alanscodelog" ] },
-	"browserslist":"defaults and supports es6-module,maintained node versions",
+	"release": {
+		"extends": [
+			"@alanscodelog/semantic-release-config"
+		]
+	},
+	"commitlint": {
+		"extends": [
+			"@alanscodelog"
+		]
+	},
+	"browserslist": "defaults and supports es6-module,maintained node versions",
 	"engines": {
 		"node": ">=18.0.0"
 	},
