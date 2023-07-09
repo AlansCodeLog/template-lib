@@ -45,8 +45,9 @@
 		"prepare": "husky install && npm run build"
 	},
 	"dependencies": {
-		"@alanscodelog/utils": "^4.0.0-beta.2",
-		"core-js":"^3.27.1"
+		"@alanscodelog/utils": "^4.0.0-beta.5",
+		"@alanscodelog/vue-components": "^1.2.1",
+		"metamorphosis": "^0.2.1"
 	},
 	"devDependencies": {
 		"@alanscodelog/commitlint-config": "^2.0.0",
@@ -80,13 +81,14 @@
 		"onchange": "^7.1.0",
 		"semantic-release": "^19.0.5",
 		"ts-node": "^10.9.1",
-		"tsc-alias": "^1.8.2",
-		"type-fest":"^3.5.0",
-		"typedoc": "^0.23.23",
-		"typescript": "^4.9.4",
-		"vite-tsconfig-paths":"^4.0.3",
-		"vite": "^4.0.3",
-		"vitest": "^0.26.2"
+		"tsc-alias": "^1.8.7",
+		"type-fest": "^3.13.0",
+		"typedoc": "^0.24.8",
+		"typescript": "^5.1.6",
+		"vue":"^3.3.4",
+		"vite": "^4.4.2",
+		"vite-tsconfig-paths": "^4.2.0",
+		"vitest": "^0.33.0"
 	},
 	"author": "Alan <alanscodelog@gmail.com>",
 	"repository": "https://github.com/alanscodelog/TOREPONAME",
