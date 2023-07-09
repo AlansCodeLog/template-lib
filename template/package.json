@@ -99,7 +99,9 @@
 	"release": { "extends": [ "@alanscodelog/semantic-release-config" ] },
 	"commitlint": { "extends": [ "@alanscodelog" ] },
 	"browserslist":"defaults and supports es6-module,maintained node versions",
-	"engines": { "node": ">=14.0.0" },
+	"engines": {
+		"node": ">=18.0.0"
+	},
 	"@comments": {
 		"scripts": {
 			"test": "Runs `lint:types` before (so that flags can be passed to the test command) so that we can test type assertions. See expect_type function in @alanscodelog/utils.",
@@ -114,4 +116,3 @@
 	},
 	"private": true
 }
-
