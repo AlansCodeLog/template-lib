@@ -11,10 +11,7 @@ TOCONFIGURE
 
 ```bash
 npm install TONAME
-# or
-yarn add TONAME
 ```
-
 
 # Usage
 
