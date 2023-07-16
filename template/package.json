@@ -3,7 +3,6 @@
 	"description": "TOCONFIGURE",
 	"version": "0.0.0-semantically-released",
 	"TOCONFIGURE bin": "./bin/index.js",
-	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"exports": {
@@ -74,7 +73,7 @@
 		"type-fest": "^3.13.0",
 		"typedoc": "^0.24.8",
 		"typescript": "^5.1.6",
-		"vue":"^3.3.4",
+		"vue": "^3.3.4",
 		"vite": "^4.4.2",
 		"vite-tsconfig-paths": "^4.2.0",
 		"vitest": "^0.33.0"
