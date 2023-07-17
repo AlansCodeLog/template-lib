@@ -1,14 +1,15 @@
-const fs = require("fs")
-const path = require("path")
-const pkg = require("./package.json")
+import fs from "fs"
+import path from "path"
+
+import pkg from "./package.json"
 
 
-module.exports = {
+export default {
 	githubPages: true,
 	navigationLinks: {
-		"Github": pkg.repository,
-		"Issues": pkg.repository + "/issues",
-		"npm": "http://npmjs.com/" + pkg.name,
+		Github: pkg.repository,
+		Issues: `${pkg.repository}/issues`,
+		npm: `http://npmjs.com/${pkg.name}`,
 	},
 	readme: "README.md",
 	logLevel: "Verbose",
