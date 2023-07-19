@@ -18,5 +18,8 @@
 		"*.ts",
 		"*.cjs",
 		"*.js"
-	]
+	],
+	"tsc-alias": {
+		"resolveFullPaths": true // for esm compatibility
+	}
 }

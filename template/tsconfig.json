@@ -6,11 +6,15 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"baseUrl": "src",
-		"paths": {
-		},
-		"types": [ /* "node" */ ],
+		"paths": {},
+		"types": [
+			/* "node" */
+		],
 		// the libs are explicitly specified because otherwise typescript includes the dom by default
-		"lib": [ /* "dom", */ "esnext" ]
+		"lib": [
+			/* "dom", */
+			"esnext"
+		]
 	},
 	"include": [
 		"src/**/*.ts",
@@ -22,8 +26,5 @@
 		"*.cjs",
 		"*.js"
 	],
-	"exclude": [],
-	"tsc-alias": {
-		"resolveFullPaths": true // for esm compatibility
-	}
+	"exclude": []
 }
