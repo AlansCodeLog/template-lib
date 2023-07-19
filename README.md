@@ -2,7 +2,9 @@
 My template repo for typescript libraries. I have found myself setting up the same things over and over again so I decided to create a small template. It includes:
 
 - typedoc for generating docs
-- vite for builds and vitest for tests
+- vite for builds with:
+	- proper types output (with path aliases and baseUrl imports mapped to the correct paths)
+- vitest for tests
 - build/coverabe/docs/release github actions
 - semantic release and commitlint for handling releases
 - husky for handling git hooks
