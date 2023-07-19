@@ -51,7 +51,13 @@ export default async ({ mode }: { mode: string }) => defineConfig({
 		],
 	},
 	server: {
+		// for locally linked repos
+		fs: {
+			allow: [process.env.CODE_PROJECTS!],
+		},
 		watch: {
+			// for pnpm
+			followSymlinks: true,
 			// watch changes in linked repos
 			ignored: ["!**/node_modules/@alanscodelog/**"],
 		},
