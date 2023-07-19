@@ -1,18 +1,15 @@
-import { escapeRegex } from "@alanscodelog/utils"
 import glob from "fast-glob"
-import { builtinModules } from "module"
 import path from "path"
 import dts from "vite-plugin-dts"
+import { externalizeDeps } from "vite-plugin-externalize-deps"
 import tsconfigPaths from "vite-tsconfig-paths"
 import { defineConfig } from "vitest/config"
-
-import packageJson from "./package.json"
-
-
 
 // https://vitejs.dev/config/
 export default async ({ mode }: { mode: string }) => defineConfig({
 	plugins: [
+		// it isn't enough to just pass the deps list to rollup.external since it will not exclude subpath exports
+		externalizeDeps(),
 		// even if we don't use aliases, this is needed to get imports based on baseUrl working
 		tsconfigPaths(),
 		dts({
@@ -31,7 +28,6 @@ export default async ({ mode }: { mode: string }) => defineConfig({
 			},
 		},
 		rollupOptions: {
-			external: [...builtinModules, ...Object.keys((packageJson as any).dependencies ?? {}), ...Object.keys((packageJson as any).peerDependencies ?? {}), /@babel\/runtime/],
 			output: {
 				preserveModulesRoot: "src",
 				preserveModules: true,

@@ -3,6 +3,7 @@ My template repo for typescript libraries. I have found myself setting up the sa
 
 - typedoc for generating docs
 - vite for builds with:
+	- proper externalizing of deps for libraries
 	- proper types output (with path aliases and baseUrl imports mapped to the correct paths)
 - vitest for tests
 - build/coverabe/docs/release github actions
@@ -24,6 +25,7 @@ I have also made repos for the configs that rarely change to help declutter thin
 - Madge can report false positives because of typescript `import type` imports. This can be fixed by adding a config file, but I'm not adding one for a single option. It's pretty obvious anyways when it's a type import, since I keep all types in a `types/*` folder in all my projects. Also doesn't work with vue files.
 	- Needed because circular imports can bring a lot of problems, especially with esm. Convenience imports, like importing from a folder index are a no no if preserving modules when compiling.
 - Scripts use `npm run` even though I use pnpm, so that it's maximally compatible in the case of testing issues, etc with other package managers.
+- There's currently no bash scripts, but they should also be called via bash like `bash -c "..."` to avoid them not working in other shells.
 - `@comments` property of package.json explains other non-obvious things.
 
 # Install
