@@ -21,11 +21,8 @@ export default async ({ mode }: { mode: string }) => defineConfig({
 		outDir: "dist",
 		lib: {
 			entry: glob.sync(path.resolve(__dirname, "src/**/*.ts")),
-			formats: ["es", "cjs"],
-			fileName: (format, entryName) => {
-				const suffix = format === "es" ? "js" : "cjs"
-				return `${entryName}.${suffix}`
-			},
+			formats: ["es"],
+		
 		},
 		rollupOptions: {
 			output: {
@@ -48,13 +45,13 @@ export default async ({ mode }: { mode: string }) => defineConfig({
 	},
 	resolve: {
 		alias: [
-			// absolute path needed because of https://github.com/vitest-dev/vitest/issues/2425
+			// for tests only, absolute path needed because of https://github.com/vitest-dev/vitest/issues/2425
 			{ find: /^@\/(.*)/, replacement: `${path.resolve("src")}/$1/index.ts` },
 			{ find: /^@tests\/(.*)/, replacement: `${path.resolve("tests")}/$1` },
 		],
 	},
 	server: {
-		// for locally linked repos
+		// for locally linked repos when using vite server (i.e. not needed for libraries)
 		fs: {
 			allow: [process.env.CODE_PROJECTS!],
 		},
