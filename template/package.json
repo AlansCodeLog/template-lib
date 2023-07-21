@@ -33,7 +33,7 @@
 		"doc:serve": "http-server docs --port=5001",
 		"doc:dev": "concurrently \"npm run doc:watch\" \"npm run doc:serve\"",
 		"doc:check-invalid": "typedoc --options typedoc.config.cjs --listInvalidSymbolLinks",
-		"actions:debug": "act -r -v -j build-only",
+		"actions:debug": "act -r -v -j build",
 		"gen:exports": "indexit update -o '${path}.js'",
 		"prepare": "husky install && npm run build"
 	},
