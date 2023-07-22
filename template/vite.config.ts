@@ -59,7 +59,7 @@ export default async ({ mode }: { mode: string }) => defineConfig({
 	server: {
 		// for locally linked repos when using vite server (i.e. not needed for libraries)
 		fs: {
-			allow: [process.env.CODE_PROJECTS!],
+			allow: [...(process.env.CODE_PROJECTS ?? [])!],
 		},
 		watch: {
 			// for pnpm
