@@ -8,3 +8,5 @@ coverage
 
 dist
 bin
+!flake.lock
+!.direnv

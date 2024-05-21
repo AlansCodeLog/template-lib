@@ -92,6 +92,9 @@ function main(args) {
 			if (flags.all) return
 			await Promise.all(["gh","git", "husky", "ts", "eslint", "vite", "package"].map(type => commands[type]()))
 		},
+		flake: async () => {
+			await diffOrCopy([".envrc", "flake.nix"], flags)
+		},
 		gh: async () => {
 			await diffOrCopy(await glob(".github/**/*", fastGlobOpts), flags)
 		},
