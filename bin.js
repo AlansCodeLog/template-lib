@@ -121,7 +121,7 @@ function main(args) {
 			await diffOrCopy(await glob("typedoc*", fastGlobOpts), flags)
 		},
 		eslint: async () => {
-			await diffOrCopy(await glob([".eslintrc*", "**/.eslintrc*"], fastGlobOpts), flags)
+			await diffOrCopy(["eslint.config.js"], flags)
 		},
 		vite: async () => {
 			await diffOrCopy(await glob("vite*", fastGlobOpts), flags)
