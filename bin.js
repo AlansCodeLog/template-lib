@@ -113,7 +113,6 @@ function main(args) {
 		},
 		gh_build: async () => {
 			await diffOrCopy([".github/workflows/build.yml"], flags)
-			await diffOrCopy([".github/workflows/build-only.yml"], flags)
 		},
 		gh_docs: async () => {
 			await diffOrCopy([".github/workflows/docs.yml"], flags)
