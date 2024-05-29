@@ -4,11 +4,17 @@
 	"version": "0.0.0-semantically-released",
 	"TOCONFIGURE bin": "./bin/index.js",
 	"types": "./dist/index.d.ts",
+	"module": "./dist/index.js",
 	"type": "module",
+	"sideEffects": false,
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"import": "./dist/*"
 		}
 	},
 	"scripts": {
