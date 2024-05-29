@@ -1,10 +1,10 @@
-import { run } from "@alanscodelog/utils/node"
 import glob from "fast-glob"
 import path from "path"
 import type { PluginOption } from "vite"
 import { externalizeDeps } from "vite-plugin-externalize-deps"
-import tsconfigPaths from "vite-tsconfig-paths"
 import { defineConfig } from "vitest/config"
+
+import { run } from "@alanscodelog/utils/node"
 
 
 const typesPlugin = (): PluginOption => ({
@@ -18,17 +18,14 @@ export default async ({ mode }: { mode: string }) => defineConfig({
 	plugins: [
 		// it isn't enough to just pass the deps list to rollup.external since it will not exclude subpath exports
 		externalizeDeps(),
-		// even if we don't use aliases, this is needed to get imports based on baseUrl working
-		tsconfigPaths(),
-		// runs build:types script which takes care of generating types and fixing type aliases and baseUrl imports
+		// runs build:types script which takes care of generating types
 		typesPlugin(),
 	],
 	build: {
 		outDir: "dist",
 		lib: {
-			entry: glob.sync(path.resolve(__dirname, "src/**/*.ts")),
+			entry: glob.sync(path.resolve(import.meta.dirname, "src/**/*.ts")),
 			formats: ["es"],
-		
 		},
 		rollupOptions: {
 			output: {
@@ -48,13 +45,6 @@ export default async ({ mode }: { mode: string }) => defineConfig({
 	},
 	test: {
 		cache: process.env.CI ? false : undefined,
-	},
-	resolve: {
-		alias: [
-			// for tests only, absolute path needed because of https://github.com/vitest-dev/vitest/issues/2425
-			{ find: /^@\/(.*)/, replacement: `${path.resolve("src")}/$1/index.ts` },
-			{ find: /^@tests\/(.*)/, replacement: `${path.resolve("tests")}/$1` },
-		],
 	},
 	server: {
 		// for locally linked repos when using vite server (i.e. not needed for libraries)
