@@ -1,21 +1,6 @@
-<!--
-TOCONFIGURE
-
-![Docs](https://github.com/alanscodelog/TOREPONAME/workflows/Docs/badge.svg)
-![Build](https://github.com/alanscodelog/TOREPONAME/workflows/Build/badge.svg)
-[![Release](https://github.com/alanscodelog/TOREPONAME/workflows/Release/badge.svg)](https://www.npmjs.com/package/TONAME)
+[![Docs](https://github.com/witchcraftjs/TOREPONAME/workflows/Docs/badge.svg)](https://github.com/witchcraftjs/expressit/actions/workflows/docs.yml)
+[![Build](https://github.com/witchcraftjs/TOREPONAME/actions/workflows/build.yml/badge.svg)](https://github.com/witchcraftjs/expressit/actions/workflows/build.yml)
+[![Release](https://github.com/witchcraftjs/TOREPONAME/actions/workflows/release.yml/badge.svg)](https://www.npmjs.com/package/TONAME)
 
 # [Docs](https://alanscodelog.github.io/TOREPONAME)
 
-# Install
-
-```bash
-npm install TONAME
-```
-
-# Usage
-
-```ts
-```
-
--->
