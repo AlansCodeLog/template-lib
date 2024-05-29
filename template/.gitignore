@@ -1,5 +1,9 @@
 **/*.log*
+
+# TOCONFIGURE
 *lock*
+!demo/*lock* 
+
 .vscode
 node_modules
 worktree*/**/*
@@ -9,4 +13,4 @@ coverage
 dist
 bin
 !flake.lock
-!.direnv
+.direnv
