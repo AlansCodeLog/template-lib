@@ -11,7 +11,7 @@ on:
   #   # https://crontab.guru/#0_12_1_*_*
   #   - cron:  '0 15 1 * *'
   push:
-    branches: [ master ]
+    branches: [ master , build, experimental ]
   repository_dispatch:
     types: [ build ]
 
