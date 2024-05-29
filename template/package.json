@@ -1,5 +1,6 @@
 {
-	"name": "TONAME",
+	"": "TOCONFIGURE",
+	"name": "to-name",
 	"description": "TOCONFIGURE",
 	"version": "0.0.0-semantically-released",
 	"TOCONFIGURE bin": "./bin/index.js",
@@ -95,7 +96,7 @@
 	},
 	"browserslist": "defaults and supports es6-module,maintained node versions",
 	"engines": {
-		"node": ">=18.0.0"
+		"node": ">=20.0.0"
 	},
 	"@comments": {
 		"scripts": {
