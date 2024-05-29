@@ -1,4 +1,3 @@
-// advanced
 import { allFileTypes, tsEslintConfig, vueConfig } from "@alanscodelog/eslint-config"
 export default tsEslintConfig( // this is just a re-export of tsEslint.config
 	// https://github.com/AlansCodeLog/eslint-config
