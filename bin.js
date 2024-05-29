@@ -90,7 +90,17 @@ function main(args) {
 	const commands = {
 		KEY: async () => { //as in only key parts
 			if (flags.all) return
-			await Promise.all(["gh","git", "husky", "ts", "eslint", "vite", "package"].map(type => commands[type]()))
+			const keyParts = Object.keys(commands)
+				.filter(key => key !== "KEY" 
+					// already included by gh
+					&& key !== "gh_build"
+					&& key !== "gh_docs"
+					&& key !== "tests"
+					&& key !== "docs"
+					&& key !== "readme"
+					&& key !== "vscode"
+			)
+			await Promise.all(keyParts.map(type => commands[type]()))
 		},
 		flake: async () => {
 			await diffOrCopy([".envrc", "flake.nix"], flags)
