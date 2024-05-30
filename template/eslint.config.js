@@ -4,7 +4,7 @@ export default tsEslintConfig( // this is just a re-export of tsEslint.config
 	...vueConfig,
 	{
 		files: [`**/*.{${allFileTypes.join(",")}}`],
-		// is experimentalUseProjectService is getting overloaded
+		// if experimentalUseProjectService is getting overloaded
 		// languageOptions: {
 		// 	parserOptions: {
 		// 		// eslint-disable-next-line camelcase
