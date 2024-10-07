@@ -1,7 +1,6 @@
-name: Docs
+name: Docs 
 
 env:
-  USE_LOCKFILE: ${{ secrets.USE_LOCKFILE }}
   ENABLE_DOCS: ${{ secrets.ENABLE_DOCS }}
 
 on:
@@ -11,43 +10,23 @@ on:
     types: [ docs ]
 
 jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+    if: "! contains(toJSON(github.event.commits.*.message), '[skip ci]') && ! contains(toJSON(github.event.commits.*.message), '(no-release)')"
+    secrets: inherit
+
   docs:
-    if: "! contains(toJSON(github.event.commits.*.message), '[skip ci]')"
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ["latest"]
-
+        node-version: ["lts/*"]
     steps:
-
-    # region Setup
     - uses: actions/checkout@v4
 
-    - uses: pnpm/action-setup@v4
-      name: Install pnpm
-      id: pnpm-install
+    - uses: ./.github/actions/composite-setup
       with:
-        version: latest
-
-    - uses: actions/setup-node@v4
-      name: Setting Up Node.js (${{ matrix.node-version }})
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: ${{ env.USE_LOCKFILE == 'true' && 'pnpm' || '' }}
-
-    - run: pnpm install --frozen-lockfile
-      if: "env.USE_LOCKFILE == 'true'"
-
-    - run: pnpm install --no-lockfile
-      if: "env.USE_LOCKFILE != 'true'"
-    # regionend
-
-    # region Steps
-    - run: pnpm build
-
-    - run: pnpm lint
-
-    - run: pnpm test
+        USE_LOCKFILE: ${{ secrets.USE_LOCKFILE }}
 
     - run: pnpm doc
 
@@ -61,6 +40,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - run: echo "env.ENABLE_DOCS is ${{ env.ENABLE_DOCS }}, no documentation can be published" && exit 1
+    - run: echo "env.ENABLE_DOCS is ${{ fromJSON(env.ENABLE_DOCS) }}, no documentation can be published" && exit 1
       if: "env.ENABLE_DOCS != 'true'"
-    # regionend
