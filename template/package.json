@@ -2,7 +2,7 @@
 	"": "TOCONFIGURE",
 	"name": "to-name",
 	"description": "TOCONFIGURE",
-	"version": "0.0.0-semantically-released",
+	"version": "0.0.0",
 	"TOCONFIGURE bin": "./bin/index.js",
 	"types": "./dist/index.d.ts",
 	"module": "./dist/index.js",
