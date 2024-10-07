@@ -42,13 +42,13 @@
 		"prepare": "husky && npm run build"
 	},
 	"dependencies": {
-		"@alanscodelog/utils": "4.0.0-beta.17",
+		"@alanscodelog/utils": "^4.1.0"
 	},
 	"devDependencies": {
 		"@alanscodelog/commitlint-config": "^3.0.1",
-		"@alanscodelog/eslint-config": "5.0.0-beta.3",
+		"@alanscodelog/eslint-config": "^5.0.0",
 		"@alanscodelog/semantic-release-config": "^4.1.2",
-		"@alanscodelog/tsconfigs": "^4.0.1",
+		"@alanscodelog/tsconfigs": "^5.0.0",
 		"@alanscodelog/vite-config": "^0.0.0",
 		"@commitlint/cli": "^19.3.0",
 		"@types/node": "^20.12.12",
@@ -84,6 +84,13 @@
 		"extends": [
 			"@alanscodelog"
 		]
+	},
+	"madge": {
+		"detectiveOptions": {
+			"ts": {
+			"skipTypeImports": true
+			}
+		}
 	},
 	"browserslist": "defaults and supports es6-module,maintained node versions",
 	"engines": {

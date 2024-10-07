@@ -16,7 +16,7 @@ I have also made repos for the configs that rarely change to help declutter thin
 
 - [`@alanscodelog/commitlint-config`](https://github.com/alanscodelog/commitlint-config)
 - [`@alanscodelog/eslint-config`](https://github.com/alanscodelog/eslint-config)
-- [`@alanscodelog/semantic-release-config`](https://github.com/alanscodelog/my-semantic-release-config)
+- [`@alanscodelog/semantic-release-config`](https://github.com/alanscodelog/semantic-release-config)
 - [`@alanscodelog/tsconfigs`](https://github.com/alanscodelog/tsconfigs)
 
 # Notes

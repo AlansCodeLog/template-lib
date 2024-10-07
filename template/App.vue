@@ -25,7 +25,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { setupAccesibilityOutline } from "@alanscodelog/vue-components/mixins/setupAccesibilityOutline.js"
+import { setupAccesibilityOutline } from "@witchcraft/ui/mixins/setupAccesibilityOutline.js"
 import { onMounted, ref } from "vue"
 
 import { notificationHandler } from "./utils/notificationHandler.js"

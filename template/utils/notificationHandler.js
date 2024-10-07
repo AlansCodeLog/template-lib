@@ -1,4 +1,4 @@
-import { NotificationHandler } from "@alanscodelog/vue-components/helpers/NotificationHandler.js"
+import { NotificationHandler } from "@witchcraft/ui/helpers/NotificationHandler.js"
 
 
 export const notificationHandler = new NotificationHandler()
