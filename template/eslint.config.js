@@ -6,10 +6,12 @@ export default tsEslintConfig( // this is just a re-export of tsEslint.config
 		ignores: [
 			// ...
 		],
+
 		languageOptions: {
 			parserOptions: {
 				projectService: {
 					// allowDefaultProject: [...allowDefaultProjectGlobs, "*.vue"]
+					// defaultProject: "./tsconfig.eslint.json",
 				},
 			},
 		},
