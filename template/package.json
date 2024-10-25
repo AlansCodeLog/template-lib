@@ -21,25 +21,25 @@
 	"scripts": {
 		"build": "vite build",
 		"build:dev": "vite build --mode development",
-		"build:watch": "vite build --watch --mode production",
+		"build:watch": "vite build --watch --mode development",
 		"lint:eslint": "eslint \"{src,tests,bin}/**/*.{cjs,js,ts}\" \"*.{cjs,js,ts}\" --max-warnings=0 --report-unused-disable-directives",
 		"lint:types": "(echo \"CONFIGURE ME (lint:types script): Set vue-tsc or regular tsc\" && exit 1) && tsc --noEmit --pretty",
 		"lint:commits": "commitlint --from $(git rev-list --max-parents=0 HEAD) --to HEAD --verbose",
 		"lint:imports": "madge --circular --extensions ts ./src",
-		"lint": "npm run lint:types && npm run lint:eslint",
+		"lint": "pnpm lint:eslint",
 		"coverage": "vitest --coverage",
 		"coverage:dev": "vitest --watch --coverage",
-		"test": "npm run lint:types && vitest run",
+		"test": "vitest run",
 		"test:watch": "vitest --watch",
-		"test:inspect-errors": "cross-env INSPECT_ERRORS=true npm run test",
+		"test:inspect-errors": "cross-env INSPECT_ERRORS=true pnpm test",
 		"doc": "typedoc --options typedoc.config.cjs",
-		"doc:watch": "onchange -i \"src/**/*.ts\" \"typedoc.config.cjs\" -- npm run doc",
+		"doc:watch": "onchange -i \"src/**/*.ts\" \"typedoc.config.cjs\" -- pnpm doc",
 		"doc:serve": "http-server docs --port=5001",
-		"doc:dev": "concurrently \"npm run doc:watch\" \"npm run doc:serve\"",
+		"doc:dev": "concurrently \"pnpm doc:watch\" \"pnpm doc:serve\"",
 		"doc:check-invalid": "typedoc --options typedoc.config.cjs --listInvalidSymbolLinks",
-		"actions:debug": "act -r -v -j build",
+		"actions:debug": "act -r -v -j release",
 		"gen:exports": "indexit update -o '${path}.js'",
-		"prepare": "husky && npm run build"
+		"prepare": "husky && pnpm build"
 	},
 	"dependencies": {
 		"@alanscodelog/utils": "^4.1.0"
@@ -98,8 +98,6 @@
 	},
 	"@comments": {
 		"scripts": {
-			"test": "Runs `lint:types` before (so that flags can be passed to the test command) so that we can test type assertions. See expect_type function in @alanscodelog/utils.",
-			"lint:commits": "Lints all unpushed commits in the active branch.",
 			"test:inspect-errors": "For use with my inspect_error utility function from @alanscodelog/utils",
 			"prepare": "Needed so that if we pull the package from git it will get built and installed properly.",
 			"actions:debug": "For debugging github build action locally with nektos/act. Requires act and docker. Note: Cache will never work locally because of https://github.com/nektos/act/issues/285"
