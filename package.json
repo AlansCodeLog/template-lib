@@ -9,8 +9,8 @@
 	"bin": "bin.js",
 	"scripts": {},
 	"dependencies": {
-		"@alanscodelog/utils": "^4.0.0-beta.7",
-		"@alanscodelog/vite-config": "^0.0.0",
+		"@alanscodelog/utils": "^5.1.0",
+		"@alanscodelog/vite-config": "^0.0.5",
 		"@types/node": "^18.11.18",
 		"colors": "1.4.0",
 		"diff": "^5.1.0",
